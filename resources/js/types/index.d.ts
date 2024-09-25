@@ -7,6 +7,18 @@ export interface User {
     email_verified_at?: string;
 }
 
+export interface Box {
+    id: string;
+    name: string;
+    owner: {
+        id: number;
+        name: string;
+    };
+    links: {
+        self: string;
+    };
+}
+
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {

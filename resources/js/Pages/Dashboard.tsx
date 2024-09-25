@@ -1,3 +1,4 @@
+import { CardWrapper } from '@/components/card-wrapper';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
@@ -12,15 +13,25 @@ export default function Dashboard() {
         >
             <Head title="Dashboard" />
 
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
-                            You're logged in!
-                        </div>
+            <section>
+                <div className="container">
+                    <div className="grid grid-cols-2 gap-6">
+                        <CardWrapper
+                            title="Dashboard"
+                            description="Welcome to the dashboard."
+                        >
+                            <div>
+                                <p>You're logged in!</p>
+                            </div>
+                        </CardWrapper>
+                        <CardWrapper title="Boxes" description="Boxes content">
+                            <div>
+                                <p>You currently have no boxes.</p>
+                            </div>
+                        </CardWrapper>
                     </div>
                 </div>
-            </div>
+            </section>
         </AuthenticatedLayout>
     );
 }

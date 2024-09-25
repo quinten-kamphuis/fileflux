@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('path');
-            $table->string('parent_id')->nullable()->references('id')->on('folders')->onDelete('cascade');
+            $table->uuid('parent_id')->nullable()->references('id')->on('folders')->onDelete('cascade');
             $table->string('owner_id')->references('id')->on('users');
             $table->timestamps();
         });

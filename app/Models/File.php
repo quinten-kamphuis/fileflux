@@ -13,7 +13,7 @@ class File extends Model
 
     function folder()
     {
-        return $this->belongsTo(Folder::class);
+        return $this->belongsTo(Folder::class, "folder_id");
     }
 
     function owner()
