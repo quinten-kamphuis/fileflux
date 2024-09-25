@@ -17,7 +17,10 @@ class FolderFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->word,
+            'path' => $this->faker->word,
+            'parent_id' => null,
+            'owner_id' => 1
         ];
     }
 }
