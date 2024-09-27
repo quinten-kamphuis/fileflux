@@ -25,6 +25,9 @@ class FileResource extends JsonResource
             'mimeType' => $this->mimeType,
             'links' => [
                 'self' => route('files.show', ['id' => $this->id]),
+                'parent' => $this->parentFolder ?
+                route('folders.show', ['id' => $this->parentFolder->id]) :
+                route('boxes.show', ['id' => $this->box->id]),
                 // 'download' => route('file.download', ['id' => $this->id]),
             ],
             'breadcrumbs' => $this->breadcrumbs(),

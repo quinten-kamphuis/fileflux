@@ -45,8 +45,8 @@ class User extends Authenticatable //implements MustVerifyEmail
         ];
     }
 
-    public function folders()
+    public function boxes()
     {
-        return $this->hasMany(Folder::class);
+        return $this->hasMany(Box::class, 'owner_id');
     }
 }

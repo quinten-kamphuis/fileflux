@@ -35,6 +35,7 @@ class FileFactory extends Factory
     {
         return $this->state(function (array $attributes) use ($folder) {
             return [
+                'box_id' => $folder->box_id,
                 'parent_folder_id' => $folder->id,
                 'path' => $folder->path . '/' . ($attributes['name'] ?? $this->faker->word . '.' . $this->faker->fileExtension()),
             ];

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoxController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\ProfileController;
@@ -17,16 +18,19 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/boxes', [BoxController::class, 'index'])->name('boxes.index');
-Route::get('/box/{id}', [BoxController::class, 'show'])->name('boxes.show');
+Route::get('/boxes', [BoxController::class, 'index'])
+    ->middleware(['auth', 'verified'])->name('boxes.index');
+Route::get('/boxes/create', [BoxController::class,'create'])
+    ->middleware(['auth', 'verified'])->name('boxes.create');
+Route::get('/box/{id}', [BoxController::class, 'show'])
+    ->middleware(['auth', 'verified'])->name('boxes.show');
 Route::get('/folder/{id}', [FolderController::class, 'show'])
-    ->name('folders.show');
+    ->middleware(['auth', 'verified'])->name('folders.show');
 Route::get('/file/{id}', [FileController::class, 'show'])
-    ->name('files.show');
+    ->middleware(['auth', 'verified'])->name('files.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

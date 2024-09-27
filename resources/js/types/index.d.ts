@@ -35,6 +35,7 @@ export interface Folder {
     breadcrumbs: Breadcrumb[];
     links: {
         self: string;
+        parent: string;
     };
     folderCount: number;
     fileCount: number;
@@ -58,6 +59,7 @@ export interface File {
     mimeType: string | null;
     links: {
         self: string;
+        parent: string;
     };
     breadcrumbs: Breadcrumb[];
 }

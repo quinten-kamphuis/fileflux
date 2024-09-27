@@ -3,7 +3,7 @@ import { CardWrapper } from '@/components/card-wrapper';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Folder } from '@/types';
 import { Head } from '@inertiajs/react';
-import { IconFile, IconFolder } from '@tabler/icons-react';
+import { IconArrowLeft, IconFile, IconFolder } from '@tabler/icons-react';
 
 type Props = {
     folder: Folder;
@@ -23,10 +23,24 @@ export default function FolderPage({ folder }: Props) {
                 </div>
             }
         >
-            <Head title="Dashboard" />
+            <Head title={folder.name} />
             <section>
                 <div className="container">
                     <div className="grid grid-cols-3 gap-6">
+                        <CardWrapper
+                            title={
+                                <div className="flex items-center gap-2">
+                                    <IconArrowLeft />
+                                    <p>..</p>
+                                </div>
+                            }
+                            description="Go back up one level"
+                            href={folder.links.parent}
+                        >
+                            <div>
+                                <p>Go back up one level.</p>
+                            </div>
+                        </CardWrapper>
                         {folders.map((folder) => (
                             <CardWrapper
                                 key={folder.id}

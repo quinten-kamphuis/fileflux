@@ -19,6 +19,7 @@ class BoxController extends Controller
         $boxes = Box::with('owner:id,name')->get();
         return Inertia::render('Boxes', [
             'boxes' => BoxesResource::collection($boxes),
+            'boxesCount' => $boxes->count(),
         ]);
     }
 
@@ -27,7 +28,12 @@ class BoxController extends Controller
      */
     public function create()
     {
-        //
+        $boxes = Box::with('owner:id,name')->get();
+        return Inertia::render('Boxes', [
+            'boxes' => BoxesResource::collection($boxes),
+            'boxesCount' => $boxes->count(),
+            'showCreateModal' => true,
+        ]);
     }
 
     /**

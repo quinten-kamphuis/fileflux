@@ -2,7 +2,11 @@ import { CardWrapper } from '@/components/card-wrapper';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
-export default function Dashboard() {
+type Props = {
+    boxesCount: number;
+};
+
+export default function Dashboard({ boxesCount }: Props) {
     return (
         <AuthenticatedLayout
             header={
@@ -24,9 +28,13 @@ export default function Dashboard() {
                                 <p>You're logged in!</p>
                             </div>
                         </CardWrapper>
-                        <CardWrapper title="Boxes" description="Boxes content">
+                        <CardWrapper
+                            title="Boxes"
+                            description="Boxes content"
+                            href={route('boxes.index')}
+                        >
                             <div>
-                                <p>You currently have no boxes.</p>
+                                <p>There are {boxesCount} boxes.</p>
                             </div>
                         </CardWrapper>
                     </div>

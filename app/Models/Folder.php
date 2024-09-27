@@ -36,8 +36,7 @@ class Folder extends Model
 
     public function files()
     {
-        return $this->hasMany(File::class, "box_id")
-            ->where('parent_folder_id', $this->id);
+        return $this->hasMany(File::class, 'parent_folder_id');
     }
 
     public function owner()

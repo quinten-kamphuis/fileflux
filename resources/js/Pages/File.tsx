@@ -3,7 +3,7 @@ import { CardWrapper } from '@/components/card-wrapper';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { File } from '@/types';
 import { Head } from '@inertiajs/react';
-import { IconFile } from '@tabler/icons-react';
+import { IconArrowLeft, IconFile } from '@tabler/icons-react';
 
 type Props = {
     file: File;
@@ -21,10 +21,24 @@ export default function FilePage({ file }: Props) {
                 </div>
             }
         >
-            <Head title="Dashboard" />
+            <Head title={file.name} />
             <section>
                 <div className="container">
                     <div className="grid grid-cols-1 gap-6">
+                        <CardWrapper
+                            title={
+                                <div className="flex items-center gap-2">
+                                    <IconArrowLeft />
+                                    <p>..</p>
+                                </div>
+                            }
+                            description="Go back up one level"
+                            href={file.links.parent}
+                        >
+                            <div>
+                                <p>Go back up one level.</p>
+                            </div>
+                        </CardWrapper>
                         <CardWrapper
                             key={file.id}
                             title={
@@ -34,7 +48,6 @@ export default function FilePage({ file }: Props) {
                                 </div>
                             }
                             description="Box content"
-                            href={file.links.self}
                         >
                             <div className="flex justify-between gap-2">
                                 <p>{file.owner.name}</p>

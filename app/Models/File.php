@@ -16,7 +16,7 @@ class File extends Model
         return $this->belongsTo(Box::class, "box_id");
     }
 
-    function folder()
+    function parentFolder()
     {
         return $this->belongsTo(Folder::class, "parent_folder_id");
     }

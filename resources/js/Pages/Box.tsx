@@ -3,7 +3,12 @@ import { CardWrapper } from '@/components/card-wrapper';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Box } from '@/types';
 import { Head } from '@inertiajs/react';
-import { IconBox, IconFile, IconFolder } from '@tabler/icons-react';
+import {
+    IconArrowLeft,
+    IconBox,
+    IconFile,
+    IconFolder,
+} from '@tabler/icons-react';
 
 type Props = {
     box: Box;
@@ -23,10 +28,24 @@ export default function BoxPage({ box }: Props) {
                 </div>
             }
         >
-            <Head title="Dashboard" />
+            <Head title={box.name} />
             <section>
                 <div className="container">
                     <div className="grid grid-cols-3 gap-6">
+                        <CardWrapper
+                            title={
+                                <div className="flex items-center gap-2">
+                                    <IconArrowLeft />
+                                    <p>..</p>
+                                </div>
+                            }
+                            description="Go back up one level"
+                            href={route('boxes.index')}
+                        >
+                            <div>
+                                <p>Go back up one level.</p>
+                            </div>
+                        </CardWrapper>
                         {folders.map((folder) => (
                             <CardWrapper
                                 key={folder.id}
