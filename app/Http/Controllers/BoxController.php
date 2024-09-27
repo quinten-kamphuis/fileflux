@@ -3,20 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\BoxResource;
+use App\Http\Resources\BoxesResource;
+use App\Models\Box;
 use App\Models\Folder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class BoxesController extends Controller
+class BoxController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $boxes = Folder::whereNull('parent_id')->get();
+        $boxes = Box::with('owner:id,name')->get();
         return Inertia::render('Boxes', [
-            'boxes' => BoxResource::collection($boxes),
+            'boxes' => BoxesResource::collection($boxes),
         ]);
     }
 
@@ -41,7 +43,10 @@ class BoxesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $box = Box::findOrFail($id);
+        return Inertia::render('Box', [
+            'box' => new BoxResource($box),
+        ]);
     }
 
     /**

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BoxResource extends JsonResource
+class BoxesResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,12 +18,9 @@ class BoxResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'owner' => new UserResource($this->owner),
-            'links' => [
-                'self' => route('boxes.show', ['id' => $this->id]),
-            ],
-            'breadcrumbs' => $this->breadcrumbs(),
-            'folders' => FolderResource::collection($this->folders),
-            'files' => FileResource::collection($this->files),
+            'links' => ['self' => route('boxes.show', ['id' => $this->id])],
+            'folderCount' => $this->allFoldersCount(),
+            'fileCount' => $this->allFilesCount(),
         ];
     }
 }

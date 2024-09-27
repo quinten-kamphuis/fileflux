@@ -19,8 +19,12 @@ class FolderResource extends JsonResource
             'name' => $this->name,
             'path' => $this->path,
             'owner' => new UserResource($this->owner),
-            'parent' => new FolderResource($this->parent),
-            'childFolders' => FolderResource::collection($this->childFolders),
+            'parent' => new FolderResource($this->parentFolder),
+            'links' => [
+                'self' => route('folders.show', ['id' => $this->id]),
+            ],
+            'breadcrumbs' => $this->breadcrumbs(),
+            'folders' => FolderResource::collection($this->folders),
             'files' => FileResource::collection($this->files),
         ];
     }

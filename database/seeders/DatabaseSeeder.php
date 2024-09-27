@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Box;
+use App\Models\File;
 use App\Models\Folder;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -21,6 +23,28 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Folder::factory()->count(10)->hasFiles(5)->create();
+        Box::factory()
+            ->count(3)
+            ->create()
+            ->each(function ($box) {
+                // Create folders for this box
+                Folder::factory()
+                    ->count(4)
+                    ->for($box)
+                    ->create()
+                    ->each(function ($folder) {
+                        // Create files in this folder
+                        File::factory()
+                            ->count(2)
+                            ->inFolder($folder)
+                            ->create();
+                    });
+
+                // Create files directly in the box (no parent folder)
+                File::factory()
+                    ->count(5)
+                    ->for($box)
+                    ->create();
+            });
     }
 }

@@ -13,10 +13,11 @@ return new class extends Migration {
         Schema::create('files', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->string('folder_id')->references('id')->on('folders');
-            $table->string('owner_id')->references('id')->on('users');
-            $table->string('file_path');
-            $table->bigInteger('file_size');
+            $table->foreignUuid('box_id')->constrained()->onDelete('cascade');
+            $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');
+            $table->foreignUuid('parent_folder_id')->nullable()->constrained('folders')->onDelete('cascade');
+            $table->string('path');
+            $table->unsignedBigInteger('file_size');
             $table->string('mime_type');
             $table->timestamps();
         });

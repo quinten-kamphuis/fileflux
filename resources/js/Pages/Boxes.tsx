@@ -1,8 +1,8 @@
 import { CardWrapper } from '@/components/card-wrapper';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Box } from '@/types';
+import { type Box } from '@/types';
 import { Head } from '@inertiajs/react';
-import { IconBox } from '@tabler/icons-react';
+import { IconBox, IconFile, IconFolder } from '@tabler/icons-react';
 
 type Props = {
     boxes: Box[];
@@ -32,14 +32,26 @@ export default function Boxes({ boxes }: Props) {
                                 description="Box content"
                                 href={box.links.self}
                             >
-                                <div>
+                                <div className="flex justify-between gap-2">
                                     <p>{box.owner.name}</p>
+                                    <div className="flex gap-4">
+                                        <div className="flex items-center gap-1">
+                                            <IconFolder />
+                                            {box.folderCount}
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                            <IconFile />
+                                            {box.fileCount}
+                                        </div>
+                                    </div>
                                 </div>
                             </CardWrapper>
                         ))}
                     </div>
-                    <pre>{JSON.stringify(boxes, null, 2)}</pre>
                 </div>
+            </section>
+            <section className="mt-[100vh]">
+                <pre>{JSON.stringify(boxes, null, 2)}</pre>
             </section>
         </AuthenticatedLayout>
     );

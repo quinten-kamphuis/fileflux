@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\HasBreadcrumbs;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,25 +10,34 @@ use Illuminate\Support\Facades\Log;
 
 class Folder extends Model
 {
-    use HasFactory;
-    use HasUuids;
+    use HasFactory, HasUuids, HasBreadcrumbs;
 
     protected $fillable = [
         'name',
         'path',
-        'parent_id',
+        'parent_folder_id',
         'owner_id',
     ];
 
-    public function childFolders()
+    public function box()
     {
-        Log::info('Accessing childFolders for folder: ' . $this->id);
-        return $this->hasMany(Folder::class, 'parent_id');
+        return $this->belongsTo(Box::class, "box_id");
+    }
+
+    public function parentFolder()
+    {
+        return $this->belongsTo(Folder::class, 'parent_folder_id');
+    }
+
+    public function folders()
+    {
+        return $this->hasMany(Folder::class, 'parent_folder_id');
     }
 
     public function files()
     {
-        return $this->hasMany(File::class, "folder_id");
+        return $this->hasMany(File::class, "box_id")
+            ->where('parent_folder_id', $this->id);
     }
 
     public function owner()
@@ -35,8 +45,16 @@ class Folder extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
-    public function isBox()
+    public function breadcrumb()
     {
-        return $this->parent_id === null;
+        $breadcrumb = collect([$this]);
+        $parent = $this->parentFolder;
+
+        while ($parent) {
+            $breadcrumb->prepend($parent);
+            $parent = $parent->parent;
+        }
+
+        return $breadcrumb;
     }
 }

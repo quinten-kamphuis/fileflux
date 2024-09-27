@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Box;
+use App\Models\Folder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,11 +20,24 @@ class FileFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'folder_id' => 1,
+            'box_id' => function () {
+                return Box::inRandomOrder()->first()->id ?? Box::factory()->create()->id;
+            },
             'owner_id' => 1,
-            'file_path' => $this->faker->word,
+            'parent_folder_id' => null,
+            'path' => $this->faker->word,
             'file_size' => $this->faker->randomNumber(),
             'mime_type' => $this->faker->word
         ];
+    }
+
+    public function inFolder(Folder $folder)
+    {
+        return $this->state(function (array $attributes) use ($folder) {
+            return [
+                'parent_folder_id' => $folder->id,
+                'path' => $folder->path . '/' . ($attributes['name'] ?? $this->faker->word . '.' . $this->faker->fileExtension()),
+            ];
+        });
     }
 }

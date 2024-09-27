@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\BoxesController;
+use App\Http\Controllers\BoxController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\FolderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -19,8 +21,12 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/boxes', [BoxesController::class, 'index'])->name('boxes');
-Route::get('/boxes/{id}', [BoxesController::class, 'show'])->name('boxes.show');
+Route::get('/boxes', [BoxController::class, 'index'])->name('boxes.index');
+Route::get('/box/{id}', [BoxController::class, 'show'])->name('boxes.show');
+Route::get('/folder/{id}', [FolderController::class, 'show'])
+    ->name('folders.show');
+Route::get('/file/{id}', [FileController::class, 'show'])
+    ->name('files.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

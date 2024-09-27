@@ -14,9 +14,59 @@ export interface Box {
         id: number;
         name: string;
     };
+    breadcrumbs: Breadcrumb[];
     links: {
         self: string;
     };
+    folderCount: number;
+    fileCount: number;
+    folders: Folder[];
+    files: File[];
+}
+[];
+
+export interface Folder {
+    id: string;
+    name: string;
+    owner: {
+        id: number;
+        name: string;
+    };
+    breadcrumbs: Breadcrumb[];
+    links: {
+        self: string;
+    };
+    folderCount: number;
+    fileCount: number;
+    box: Box;
+    folders: Folder[];
+    files: File[];
+}
+
+export interface File {
+    id: string;
+    name: string;
+    path: string;
+    owner: {
+        id: number;
+        name: string;
+        email: string;
+    };
+    folder: Folder | null;
+    size: number | null;
+    extension: string | null;
+    mimeType: string | null;
+    links: {
+        self: string;
+    };
+    breadcrumbs: Breadcrumb[];
+}
+
+export interface Breadcrumb {
+    id: string;
+    name: string;
+    type: 'box' | 'folder' | 'file';
+    link?: string;
 }
 
 export type PageProps<

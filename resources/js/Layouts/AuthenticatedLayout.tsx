@@ -39,14 +39,21 @@ export default function Authenticated({
                             asChild
                             size="icon"
                             variant={
-                                route().current('boxes') ? 'default' : 'outline'
+                                route().current('boxes*') ||
+                                route().current('folders*') ||
+                                route().current('files*')
+                                    ? 'default'
+                                    : 'outline'
                             }
                             className={cn(
-                                route().current('boxes') && 'text-background',
+                                (route().current('boxes*') ||
+                                    route().current('folders*') ||
+                                    route().current('files*')) &&
+                                    'text-background',
                             )}
                         >
                             <Link
-                                href={route('boxes')}
+                                href={route('boxes.index')}
                                 className="flex items-center gap-3"
                             >
                                 <IconPackageImport size={24} />
@@ -70,7 +77,9 @@ export default function Authenticated({
 
             {header && (
                 <header>
-                    <div className="container px-2 py-6">{header}</div>
+                    <div className="container flex items-center gap-2 px-2 py-6">
+                        {header}
+                    </div>
                 </header>
             )}
 

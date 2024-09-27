@@ -19,11 +19,15 @@ class FileResource extends JsonResource
             'name' => $this->name,
             'path' => $this->path,
             'owner' => new UserResource($this->owner),
+            'folder' => new FolderResource($this->folder),
             'size' => $this->size,
             'extension' => $this->extension,
             'mimeType' => $this->mimeType,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
+            'links' => [
+                'self' => route('files.show', ['id' => $this->id]),
+                // 'download' => route('file.download', ['id' => $this->id]),
+            ],
+            'breadcrumbs' => $this->breadcrumbs(),
         ];
     }
 }
