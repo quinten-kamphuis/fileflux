@@ -17,8 +17,11 @@ trait HasBreadcrumbs
         ];
 
         // Traverse up through parent folders if applicable
-        while (method_exists($currentItem, 'folder') && $currentItem->parent_folder_id) {
-            $folder = $currentItem->folder;
+        while (
+            method_exists($currentItem, 'parentFolder') &&
+            $currentItem->parentFolder !== null
+        ) {
+            $folder = $currentItem->parentFolder;
             $breadcrumbs[] = [
                 'id' => $folder->id,
                 'name' => $folder->name,
