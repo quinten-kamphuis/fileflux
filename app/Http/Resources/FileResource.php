@@ -26,9 +26,10 @@ class FileResource extends JsonResource
             'links' => [
                 'self' => route('files.show', ['id' => $this->id]),
                 'parent' => $this->parentFolder ?
-                route('folders.show', ['id' => $this->parentFolder->id]) :
-                route('boxes.show', ['id' => $this->box->id]),
-                // 'download' => route('file.download', ['id' => $this->id]),
+                    route('folders.show', ['id' => $this->parentFolder->id]) :
+                    route('boxes.show', ['id' => $this->box->id]),
+                'download' => route('files.download', ['id' => $this->id]),
+                'delete' => route('files.destroy', ['id' => $this->id]),
             ],
             'breadcrumbs' => $this->breadcrumbs(),
         ];

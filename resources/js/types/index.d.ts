@@ -60,6 +60,8 @@ export interface File {
     links: {
         self: string;
         parent: string;
+        download: string;
+        delete: string;
     };
     breadcrumbs: Breadcrumb[];
 }

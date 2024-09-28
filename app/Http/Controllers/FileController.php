@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FileActionRequest;
 use App\Http\Resources\FileResource;
 use App\Models\Box;
 use App\Models\File;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Redirect;
 use Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class FileController extends Controller
 {
@@ -32,15 +34,10 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(FileActionRequest $request)
     {
 
         $file = $request->file('file');
-
-        $request->validate([
-            'file' => 'required|file',
-            'box_id' => 'required|exists:boxes,id',
-        ]);
 
         $user = Auth::user();
         $box = Box::findOrFail($request->box_id);
@@ -79,6 +76,17 @@ class FileController extends Controller
     }
 
     /**
+     * Download the specified resource.
+     */
+    public function download(string $id)
+    {
+        $file = File::findOrFail($id);
+        $filePath = $file->path;
+
+        return Storage::disk('sftp')->download($filePath, $file->name);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
@@ -99,6 +107,13 @@ class FileController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $file = File::findOrFail($id);
+        $filePath = $file->path;
+
+        $file->delete();
+
+        Storage::disk('sftp')->delete($filePath);
+
+        return Redirect::route('boxes.show', ['id' => $file->box_id]);
     }
 }

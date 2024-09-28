@@ -28,12 +28,18 @@ Route::get('/boxes/create', [BoxController::class, 'create'])
 Route::post('/boxes/store', [BoxController::class, 'store'])->name('boxes.store');
 Route::get('/box/{id}', [BoxController::class, 'show'])
     ->middleware(['auth', 'verified'])->name('boxes.show');
+
 Route::get('/folder/{id}', [FolderController::class, 'show'])
     ->middleware(['auth', 'verified'])->name('folders.show');
+
 Route::get('/file/create', [FileController::class, 'create'])
     ->middleware(['auth', 'verified'])->name('files.create');
 Route::post('file/store', [FileController::class, 'store'])
     ->middleware(['auth', 'verified'])->name('files.store');
+Route::get('/file/download/{id}', [FileController::class, 'download'])
+    ->middleware(['auth', 'verified'])->name('files.download');
+Route::get('/file/delete/{id}', [FileController::class, 'destroy'])
+    ->middleware(['auth', 'verified'])->name('files.destroy');
 Route::get('/file/{id}', [FileController::class, 'show'])
     ->middleware(['auth', 'verified'])->name('files.show');
 

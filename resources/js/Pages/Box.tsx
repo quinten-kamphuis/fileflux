@@ -1,5 +1,6 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { CardWrapper } from '@/components/card-wrapper';
+import { FileActions } from '@/components/file-actions';
 import { Button } from '@/components/ui/button';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useModal } from '@/lib/context/modal-provider';
@@ -89,9 +90,10 @@ export default function BoxPage({ box }: Props) {
                             >
                                 <div className="flex justify-between gap-2">
                                     <p>{file.owner.name}</p>
-                                    <div className="flex items-center gap-2">
-                                        <p>{file.mimeType}</p>
-                                    </div>
+                                    <FileActions
+                                        downloadLink={file.links.download}
+                                        deleteLink={file.links.delete}
+                                    />
                                 </div>
                             </CardWrapper>
                         ))}

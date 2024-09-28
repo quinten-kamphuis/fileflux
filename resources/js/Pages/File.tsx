@@ -1,5 +1,6 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { CardWrapper } from '@/components/card-wrapper';
+import { FileActions } from '@/components/file-actions';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { File } from '@/types';
 import { Head } from '@inertiajs/react';
@@ -51,10 +52,10 @@ export default function FilePage({ file }: Props) {
                         >
                             <div className="flex justify-between gap-2">
                                 <p>{file.owner.name}</p>
-                                <div className="flex items-center gap-2">
-                                    <IconFile />
-                                    <p>{file.mimeType}</p>
-                                </div>
+                                <FileActions
+                                    downloadLink={file.links.download}
+                                    deleteLink={file.links.delete}
+                                />
                             </div>
                         </CardWrapper>
                     </div>
