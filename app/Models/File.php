@@ -17,7 +17,6 @@ class File extends Model
         "owner_id",
         "name",
         "filename",
-        "original_filename",
         "mime_type",
         "file_size",
         "path",

@@ -5,10 +5,11 @@ import { useForm } from '@inertiajs/react';
 import React from 'react';
 
 const UploadFileForm = () => {
-    const boxId = useFileSystemStore((state) => state.boxId);
+    const { boxId, folderId } = useFileSystemStore((state) => state);
 
     const { setData, post, processing, errors, reset, progress } = useForm({
         box_id: boxId,
+        parent_folder_id: folderId,
         file: null as File | null,
     });
     const [loading, setLoading] = React.useState(false);

@@ -41,6 +41,7 @@ class FileController extends Controller
 
         $user = Auth::user();
         $box = Box::findOrFail($request->box_id);
+        $parentFolderId = $request->parent_folder_id;
 
         $path = "users/{$user->id}/boxes/{$box->id}/files/{$file->hashName()}";
 
@@ -51,9 +52,9 @@ class FileController extends Controller
         $fileRecord = new File([
             'owner_id' => $user->id,
             'box_id' => $box->id,
+            'parent_folder_id' => $parentFolderId,
+            'filename' => $file->hashName(),
             'name' => $file->getClientOriginalName(),
-            // 'filename' => $file->hashName(),
-            // 'original_filename' => $file->getClientOriginalName(),
             'mime_type' => $file->getMimeType(),
             'file_size' => $file->getSize(),
             'path' => $path,
