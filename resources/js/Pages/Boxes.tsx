@@ -1,4 +1,5 @@
 import { CardWrapper } from '@/components/card-wrapper';
+import { CreateBoxForm } from '@/components/forms/create-box-form';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -42,7 +43,7 @@ export default function Boxes({ boxes, showCreateModal }: Props) {
                                 title={
                                     <div className="flex items-center">
                                         <IconBox />
-                                        <p className="ml-2">{box.name}</p>
+                                        <span className="ml-2">{box.name}</span>
                                     </div>
                                 }
                                 description="Box content"
@@ -91,30 +92,9 @@ export default function Boxes({ boxes, showCreateModal }: Props) {
                             Create a new box to store your files.
                         </DialogDescription>
                     </DialogHeader>
-                    <div>
-                        <p>
-                            A box will cost you $5 per month and will have a
-                            storage limit of 5GB.
-                        </p>
-                        <p>
-                            You can create as many boxes as you want, but you
-                            will be charged $5 per month for each box.
-                        </p>
-                        <p>
-                            You can also buy more expensive boxes with higher
-                            storage limits.
-                        </p>
-                        <p>
-                            Here are the available box sizes and their prices:
-                        </p>
-                        <ul>
-                            <li>5GB - $5/month</li>
-                            <li>10GB - $10/month</li>
-                            <li>15GB - $15/month</li>
-                            <li>20GB - $20/month</li>
-                            <li>25GB - $25/month</li>
-                        </ul>
-                    </div>
+
+                    <CreateBoxForm />
+
                     <DialogFooter>
                         <Button variant="outline" asChild>
                             <Link href={route('boxes.create')}>Create Box</Link>

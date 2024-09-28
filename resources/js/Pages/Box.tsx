@@ -1,6 +1,8 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { CardWrapper } from '@/components/card-wrapper';
+import { Button } from '@/components/ui/button';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { useModal } from '@/lib/context/modal-provider';
 import { Box } from '@/types';
 import { Head } from '@inertiajs/react';
 import {
@@ -16,6 +18,8 @@ type Props = {
 
 export default function BoxPage({ box }: Props) {
     const { folders, files } = box;
+
+    const { showModal } = useModal();
 
     return (
         <AuthenticatedLayout
@@ -36,7 +40,7 @@ export default function BoxPage({ box }: Props) {
                             title={
                                 <div className="flex items-center gap-2">
                                     <IconArrowLeft />
-                                    <p>..</p>
+                                    <span>..</span>
                                 </div>
                             }
                             description="Go back up one level"
@@ -52,7 +56,9 @@ export default function BoxPage({ box }: Props) {
                                 title={
                                     <div className="flex items-center">
                                         <IconFolder />
-                                        <p className="ml-2">{folder.name}</p>
+                                        <span className="ml-2">
+                                            {folder.name}
+                                        </span>
                                     </div>
                                 }
                                 description="Box content"
@@ -73,7 +79,9 @@ export default function BoxPage({ box }: Props) {
                                 title={
                                     <div className="flex items-center">
                                         <IconFile />
-                                        <p className="ml-2">{file.name}</p>
+                                        <span className="ml-2">
+                                            {file.name}
+                                        </span>
                                     </div>
                                 }
                                 description="File content"
@@ -82,15 +90,22 @@ export default function BoxPage({ box }: Props) {
                                 <div className="flex justify-between gap-2">
                                     <p>{file.owner.name}</p>
                                     <div className="flex items-center gap-2">
-                                        {/* <p>{file.mime}</p> */}
+                                        <p>{file.mimeType}</p>
                                     </div>
                                 </div>
                             </CardWrapper>
                         ))}
                     </div>
+                    <Button
+                        className="mt-8"
+                        variant="outline"
+                        onClick={() => showModal('createFile')}
+                    >
+                        Upload File
+                    </Button>
                 </div>
             </section>
-            <section className="mt-96">
+            <section className="mt-[100vh]">
                 <div className="container">
                     <pre>{JSON.stringify(box, null, 2)}</pre>
                 </div>

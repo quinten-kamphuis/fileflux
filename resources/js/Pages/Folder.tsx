@@ -31,7 +31,7 @@ export default function FolderPage({ folder }: Props) {
                             title={
                                 <div className="flex items-center gap-2">
                                     <IconArrowLeft />
-                                    <p>..</p>
+                                    <span>..</span>
                                 </div>
                             }
                             description="Go back up one level"
@@ -47,7 +47,9 @@ export default function FolderPage({ folder }: Props) {
                                 title={
                                     <div className="flex items-center">
                                         <IconFolder />
-                                        <p className="ml-2">{folder.name}</p>
+                                        <span className="ml-2">
+                                            {folder.name}
+                                        </span>
                                     </div>
                                 }
                                 description="Box content"
@@ -68,7 +70,9 @@ export default function FolderPage({ folder }: Props) {
                                 title={
                                     <div className="flex items-center">
                                         <IconFile />
-                                        <p className="ml-2">{file.name}</p>
+                                        <span className="ml-2">
+                                            {file.name}
+                                        </span>
                                     </div>
                                 }
                                 description="File content"

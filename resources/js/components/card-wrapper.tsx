@@ -24,9 +24,7 @@ export const CardWrapper = ({ children, title, description, href }: Props) => {
                         <CardDescription>{description}</CardDescription>
                     )}
                 </CardHeader>
-                <CardContent>
-                    <p>{children}</p>
-                </CardContent>
+                <CardContent>{children}</CardContent>
             </Card>
         </LinkWrapper>
     );

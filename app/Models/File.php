@@ -11,6 +11,18 @@ class File extends Model
 {
     use HasFactory, HasUuids, HasBreadcrumbs;
 
+    protected $fillable = [
+        "box_id",
+        "parent_folder_id",
+        "owner_id",
+        "name",
+        "filename",
+        "original_filename",
+        "mime_type",
+        "file_size",
+        "path",
+    ];
+
     function box()
     {
         return $this->belongsTo(Box::class, "box_id");

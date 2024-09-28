@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Resources\BoxResource;
 use App\Http\Resources\BoxesResource;
 use App\Models\Box;
-use App\Models\Folder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Redirect;
 
 class BoxController extends Controller
 {
@@ -41,7 +41,18 @@ class BoxController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255|min:3',
+        ]);
+
+        $box = new Box([
+            'name' => $request->name,
+            'owner_id' => $request->user()->id,
+        ]);
+
+        $box->save();
+
+        return Redirect::route('boxes.index');
     }
 
     /**
