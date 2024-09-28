@@ -7,12 +7,9 @@ export const CreateBoxForm = () => {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
     });
-    const [loading, setLoading] = React.useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
         post(route('boxes.store'), {
             preserveScroll: true,
             forceFormData: true,
@@ -20,7 +17,6 @@ export const CreateBoxForm = () => {
                 reset();
             },
         });
-        setLoading(false);
     };
 
     return (
@@ -38,7 +34,7 @@ export const CreateBoxForm = () => {
                 )}
             </div>
             <div className="mt-4">
-                <Button type="submit" loading={processing || loading}>
+                <Button type="submit" loading={processing}>
                     Create
                 </Button>
             </div>

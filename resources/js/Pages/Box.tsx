@@ -4,6 +4,7 @@ import { FileActions } from '@/components/file-actions';
 import { Button } from '@/components/ui/button';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useModal } from '@/lib/context/modal-provider';
+import { useSyncFilesystem } from '@/lib/hooks/use-sync-filesystem';
 import { Box } from '@/types';
 import { Head } from '@inertiajs/react';
 import {
@@ -18,6 +19,10 @@ type Props = {
 };
 
 export default function BoxPage({ box }: Props) {
+    useSyncFilesystem({
+        boxId: box.id,
+    });
+
     const { folders, files } = box;
 
     const { showModal } = useModal();

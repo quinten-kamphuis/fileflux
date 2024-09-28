@@ -39,7 +39,7 @@ export interface Folder {
     };
     folderCount: number;
     fileCount: number;
-    box: Box;
+    boxId: string;
     folders: Folder[];
     files: File[];
 }

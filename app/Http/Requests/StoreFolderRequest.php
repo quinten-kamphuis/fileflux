@@ -25,7 +25,6 @@ class StoreFolderRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'parent_folder_id' => ['nullable', 'exists:folders,id'],
             'box_id' => ['required', 'exists:boxes,id'],
-            'owner_id' => ['required', 'exists:users,id'],
         ];
     }
 }

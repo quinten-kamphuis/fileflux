@@ -1,4 +1,6 @@
 import { Button } from '@/components/ui/button';
+import { useSyncFilesystem } from '@/lib/hooks/use-sync-filesystem';
+import useFileSystemStore from '@/lib/store/file-system-store';
 import { cn } from '@/lib/utils';
 import { Link, usePage } from '@inertiajs/react';
 import { IconHome, IconPackageImport } from '@tabler/icons-react';
@@ -8,7 +10,10 @@ export default function Authenticated({
     header,
     children,
 }: PropsWithChildren<{ header?: ReactNode }>) {
+    useSyncFilesystem({});
     const user = usePage().props.auth.user;
+
+    const { boxId, folderId } = useFileSystemStore((state) => state);
 
     return (
         <div className="min-h-screen">

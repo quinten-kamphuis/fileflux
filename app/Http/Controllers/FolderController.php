@@ -38,7 +38,7 @@ class FolderController extends Controller
             'name' => $data['name'],
             'parent_folder_id' => $data['parent_folder_id'] ?? null,
             'box_id' => $data['box_id'],
-            'owner_id' => $data['owner_id'],
+            'owner_id' => auth()->id(),
         ]);
 
         $folder->save();

@@ -1,13 +1,16 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import useFileSystemStore from '@/lib/store/file-system-store';
 import { useForm } from '@inertiajs/react';
 import React from 'react';
 
 const CreateFolderForm = () => {
+    const { boxId, folderId } = useFileSystemStore((state) => state);
+
     const { data, setData, post, processing, errors, reset } = useForm({
-        box_id: '9d1e6a93-7bd0-4a1f-bc51-5abbeeceb6e2',
-        owner_id: 1,
+        box_id: boxId,
+        parent_folder_id: folderId,
         name: '',
     });
 

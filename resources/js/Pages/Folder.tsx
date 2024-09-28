@@ -3,6 +3,7 @@ import { CardWrapper } from '@/components/card-wrapper';
 import { Button } from '@/components/ui/button';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useModal } from '@/lib/context/modal-provider';
+import { useSyncFilesystem } from '@/lib/hooks/use-sync-filesystem';
 import { Folder } from '@/types';
 import { Head } from '@inertiajs/react';
 import { IconArrowLeft, IconFile, IconFolder } from '@tabler/icons-react';
@@ -12,6 +13,11 @@ type Props = {
 };
 
 export default function FolderPage({ folder }: Props) {
+    useSyncFilesystem({
+        folderId: folder.id,
+        boxId: folder.boxId,
+    });
+
     const { folders, files } = folder;
 
     const { showModal } = useModal();

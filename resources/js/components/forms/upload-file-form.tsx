@@ -1,11 +1,14 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import useFileSystemStore from '@/lib/store/file-system-store';
 import { useForm } from '@inertiajs/react';
 import React from 'react';
 
 const UploadFileForm = () => {
+    const boxId = useFileSystemStore((state) => state.boxId);
+
     const { setData, post, processing, errors, reset, progress } = useForm({
-        box_id: '9d1e6a93-7bd0-4a1f-bc51-5abbeeceb6e2',
+        box_id: boxId,
         file: null as File | null,
     });
     const [loading, setLoading] = React.useState(false);
