@@ -13,7 +13,6 @@ return new class extends Migration {
         Schema::create('folders', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->string('path');
             $table->foreignUuid('box_id')->constrained('boxes')->onDelete('cascade');
             $table->foreignUuid('parent_folder_id')->nullable()->onDelete('cascade');
             $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');

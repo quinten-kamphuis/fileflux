@@ -1,6 +1,8 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { CardWrapper } from '@/components/card-wrapper';
+import { Button } from '@/components/ui/button';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { useModal } from '@/lib/context/modal-provider';
 import { Folder } from '@/types';
 import { Head } from '@inertiajs/react';
 import { IconArrowLeft, IconFile, IconFolder } from '@tabler/icons-react';
@@ -11,6 +13,8 @@ type Props = {
 
 export default function FolderPage({ folder }: Props) {
     const { folders, files } = folder;
+
+    const { showModal } = useModal();
 
     return (
         <AuthenticatedLayout
@@ -86,6 +90,20 @@ export default function FolderPage({ folder }: Props) {
                                 </div>
                             </CardWrapper>
                         ))}
+                        <div className="col-span-3 flex items-center gap-3">
+                            <Button
+                                variant="outline"
+                                onClick={() => showModal('createFile')}
+                            >
+                                Upload File
+                            </Button>
+                            <Button
+                                variant="outline"
+                                onClick={() => showModal('createFolder')}
+                            >
+                                Create Folder
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </section>

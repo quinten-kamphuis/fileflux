@@ -23,28 +23,28 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Box::factory()
-            ->count(3)
-            ->create()
-            ->each(function ($box) {
-                // Create folders for this box
-                Folder::factory()
-                    ->count(4)
-                    ->for($box)
-                    ->create()
-                    ->each(function ($folder) {
-                        // Create files in this folder
-                        File::factory()
-                            ->count(2)
-                            ->inFolder($folder)
-                            ->create();
-                    });
+        // Box::factory()
+        //     ->count(3)
+        //     ->create()
+        //     ->each(function ($box) {
+        //         // Create folders for this box
+        //         Folder::factory()
+        //             ->count(4)
+        //             ->for($box)
+        //             ->create()
+        //             ->each(function ($folder) {
+        //                 // Create files in this folder
+        //                 File::factory()
+        //                     ->count(2)
+        //                     ->inFolder($folder)
+        //                     ->create();
+        //             });
 
-                // Create files directly in the box (no parent folder)
-                File::factory()
-                    ->count(5)
-                    ->for($box)
-                    ->create();
-            });
+        //         // Create files directly in the box (no parent folder)
+        //         File::factory()
+        //             ->count(5)
+        //             ->for($box)
+        //             ->create();
+        //     });
     }
 }

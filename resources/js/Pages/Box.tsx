@@ -98,13 +98,22 @@ export default function BoxPage({ box }: Props) {
                             </CardWrapper>
                         ))}
                     </div>
-                    <Button
-                        className="mt-8"
-                        variant="outline"
-                        onClick={() => showModal('createFile')}
-                    >
-                        Upload File
-                    </Button>
+                    <div className="mt-8 flex flex-col items-start gap-4">
+                        <Button
+                            className="mt-8"
+                            variant="outline"
+                            onClick={() => showModal('createFile')}
+                        >
+                            Upload File
+                        </Button>
+                        <Button
+                            className="mt-4"
+                            variant="outline"
+                            onClick={() => showModal('createFolder')}
+                        >
+                            Create Folder
+                        </Button>
+                    </div>
                 </div>
             </section>
             <section className="mt-[100vh]">

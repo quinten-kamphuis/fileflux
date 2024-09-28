@@ -14,9 +14,9 @@ class Folder extends Model
 
     protected $fillable = [
         'name',
-        'path',
         'parent_folder_id',
         'owner_id',
+        'box_id',
     ];
 
     public function box()

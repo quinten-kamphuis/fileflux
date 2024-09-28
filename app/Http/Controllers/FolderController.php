@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreFolderRequest;
 use App\Http\Resources\FolderResource;
 use App\Models\Folder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Redirect;
 
 class FolderController extends Controller
 {
@@ -28,9 +30,18 @@ class FolderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreFolderRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $folder = new Folder([
+            'name' => $data['name'],
+            'parent_folder_id' => $data['parent_folder_id'] ?? null,
+            'box_id' => $data['box_id'],
+            'owner_id' => $data['owner_id'],
+        ]);
+
+        $folder->save();
     }
 
     /**

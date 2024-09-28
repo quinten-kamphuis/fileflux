@@ -31,6 +31,8 @@ Route::get('/box/{id}', [BoxController::class, 'show'])
 
 Route::get('/folder/{id}', [FolderController::class, 'show'])
     ->middleware(['auth', 'verified'])->name('folders.show');
+Route::post('/folder/store', [FolderController::class, 'store'])
+    ->middleware(['auth', 'verified'])->name('folders.store');
 
 Route::get('/file/create', [FileController::class, 'create'])
     ->middleware(['auth', 'verified'])->name('files.create');

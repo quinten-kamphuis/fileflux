@@ -5,7 +5,7 @@ import React from 'react';
 
 const UploadFileForm = () => {
     const { setData, post, processing, errors, reset, progress } = useForm({
-        box_id: '9d1c5770-30fc-4898-a603-65f74e745329',
+        box_id: '9d1e6a93-7bd0-4a1f-bc51-5abbeeceb6e2',
         file: null as File | null,
     });
     const [loading, setLoading] = React.useState(false);
