@@ -1,4 +1,4 @@
-import { CardWrapper } from '@/components/card-wrapper';
+import { CardWrapper } from '@/components/wrappers/card-wrapper';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 

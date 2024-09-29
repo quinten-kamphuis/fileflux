@@ -1,4 +1,3 @@
-import { CardWrapper } from '@/components/card-wrapper';
 import { CreateBoxForm } from '@/components/forms/create-box-form';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,6 +9,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+import { CardWrapper } from '@/components/wrappers/card-wrapper';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { type Box } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';

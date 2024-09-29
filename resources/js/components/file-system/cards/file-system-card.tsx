@@ -1,4 +1,5 @@
-import { CardWrapper } from '@/components/card-wrapper';
+import { CardWrapper } from '@/components/wrappers/card-wrapper';
+import { TooltipWrapper } from '@/components/wrappers/tooltip-wrapper';
 import {
     IconArrowLeft,
     IconBox,
@@ -25,12 +26,15 @@ export const FileSystemCard = ({
         <CardWrapper
             title={
                 <div className="flex items-center gap-2">
-                    {variant === 'file' && <IconFile />}
-                    {variant === 'folder' && <IconFolder />}
-                    {variant === 'box' && <IconBox />}
-                    {variant === 'up' && <IconArrowLeft />}
-
-                    <span>{title}</span>
+                    <div className="size-6 shrink-0">
+                        {variant === 'file' && <IconFile />}
+                        {variant === 'folder' && <IconFolder />}
+                        {variant === 'box' && <IconBox />}
+                        {variant === 'up' && <IconArrowLeft />}
+                    </div>
+                    <TooltipWrapper content={title}>
+                        <span className="truncate">{title}</span>
+                    </TooltipWrapper>
                 </div>
             }
             description={description}

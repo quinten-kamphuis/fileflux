@@ -1,3 +1,4 @@
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { ModalProvider } from './modal-provider';
 
 type Props = {
@@ -5,7 +6,11 @@ type Props = {
 };
 
 const Providers = ({ children }: Props) => {
-    return <ModalProvider>{children}</ModalProvider>;
+    return (
+        <ModalProvider>
+            <TooltipProvider>{children}</TooltipProvider>
+        </ModalProvider>
+    );
 };
 
 export default Providers;
