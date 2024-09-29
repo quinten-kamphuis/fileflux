@@ -13,7 +13,6 @@ trait HasBreadcrumbs
         $breadcrumbs[] = [
             'id' => $this->id,
             'name' => $this->name,
-            'type' => $this->getType(),
         ];
 
         // Traverse up through parent folders if applicable
@@ -25,7 +24,6 @@ trait HasBreadcrumbs
             $breadcrumbs[] = [
                 'id' => $folder->id,
                 'name' => $folder->name,
-                'type' => 'folder',
                 'link' => route('folders.show', ['id' => $folder->id])
             ];
             $currentItem = $folder;
@@ -37,7 +35,6 @@ trait HasBreadcrumbs
             $breadcrumbs[] = [
                 'id' => $box->id,
                 'name' => $box->name,
-                'type' => 'box',
                 'link' => route('boxes.show', ['id' => $box->id])
             ];
         }
@@ -46,16 +43,10 @@ trait HasBreadcrumbs
         $breadcrumbs[] = [
             'id' => null,
             'name' => 'Boxes',
-            'type' => 'boxes',
             'link' => route('boxes.index')
         ];
 
         // Reverse the array so it goes from box to file/folder
         return array_reverse($breadcrumbs);
-    }
-
-    protected function getType()
-    {
-        return strtolower(class_basename($this));
     }
 }

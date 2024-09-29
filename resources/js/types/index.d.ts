@@ -70,7 +70,6 @@ export interface File {
 export interface Breadcrumb {
     id: string;
     name: string;
-    type: 'box' | 'folder' | 'file';
     link?: string;
 }
 

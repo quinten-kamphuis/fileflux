@@ -1,4 +1,5 @@
 import { BoxCard } from '@/components/file-system/cards/box-card';
+import { NavigationHeader } from '@/components/file-system/headers/navigation-header';
 import { CreateBoxForm } from '@/components/forms/create-box-form';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,7 +14,6 @@ import {
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { type Box } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
-import { IconBox } from '@tabler/icons-react';
 
 type Props = {
     boxes: Box[];
@@ -24,12 +24,10 @@ export default function Boxes({ boxes, showCreateModal }: Props) {
     return (
         <AuthenticatedLayout
             header={
-                <div className="flex items-center gap-2">
-                    <IconBox />
-                    <h2 className="text-xl font-semibold leading-tight">
-                        Boxes
-                    </h2>
-                </div>
+                <NavigationHeader
+                    variant="box"
+                    breadcrumbs={[{ id: '1', name: 'Boxes' }]}
+                />
             }
         >
             <Head title="Boxes" />
