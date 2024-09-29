@@ -1,3 +1,5 @@
+import { FileActions } from '@/components/file-actions';
+import { formatFileSize } from '@/lib/utils';
 import { File } from '@/types';
 import { FileSystemCard } from './file-system-card';
 
@@ -10,14 +12,15 @@ export const FileCard = ({ file }: Props) => {
         <FileSystemCard
             variant="file"
             title={file.name}
-            description="File content"
-            link={file.links.self}
+            description={`Uploaded ${file.createdAt}`}
         >
-            <div className="flex justify-between gap-2">
-                <p>{file.owner.name}</p>
-                <div className="flex items-center gap-2">
-                    <p>{file.mimeType}</p>
-                </div>
+            <div className="flex items-end justify-between gap-2">
+                <FileActions
+                    downloadLink={file.links.download}
+                    deleteLink={file.links.delete}
+                />
+                <div className="flex items-center gap-2"></div>
+                <p>{formatFileSize(file.size || 0)}</p>
             </div>
         </FileSystemCard>
     );

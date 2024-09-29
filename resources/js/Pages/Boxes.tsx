@@ -1,3 +1,4 @@
+import { BoxCard } from '@/components/file-system/cards/box-card';
 import { CreateBoxForm } from '@/components/forms/create-box-form';
 import { Button } from '@/components/ui/button';
 import {
@@ -9,11 +10,10 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import { CardWrapper } from '@/components/wrappers/card-wrapper';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { type Box } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
-import { IconBox, IconFile, IconFolder } from '@tabler/icons-react';
+import { IconBox } from '@tabler/icons-react';
 
 type Props = {
     boxes: Box[];
@@ -38,31 +38,7 @@ export default function Boxes({ boxes, showCreateModal }: Props) {
                 <div className="container space-y-4">
                     <div className="grid grid-cols-3 gap-6">
                         {boxes.map((box) => (
-                            <CardWrapper
-                                key={box.id}
-                                title={
-                                    <div className="flex items-center">
-                                        <IconBox />
-                                        <span className="ml-2">{box.name}</span>
-                                    </div>
-                                }
-                                description="Box content"
-                                href={box.links.self}
-                            >
-                                <div className="flex justify-between gap-2">
-                                    <p>{box.owner.name}</p>
-                                    <div className="flex gap-4">
-                                        <div className="flex items-center gap-1">
-                                            <IconFolder />
-                                            {box.folderCount}
-                                        </div>
-                                        <div className="flex items-center gap-1">
-                                            <IconFile />
-                                            {box.fileCount}
-                                        </div>
-                                    </div>
-                                </div>
-                            </CardWrapper>
+                            <BoxCard key={box.id} box={box} />
                         ))}
                     </div>
                     <div className="flex items-center justify-center gap-2 py-16">

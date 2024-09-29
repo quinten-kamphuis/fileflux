@@ -20,6 +20,7 @@ class File extends Model
         "mime_type",
         "file_size",
         "path",
+        "extension",
     ];
 
     function box()

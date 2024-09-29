@@ -14,6 +14,21 @@ class FolderResource extends JsonResource
         parent::__construct($resource);
         $this->isChild = $isChild;
     }
+
+    private function getFolderCount($folder)
+    {
+        return $folder->folders->reduce(function ($count, $folder) {
+            return $count + 1 + $this->getFolderCount($folder);
+        }, 0);
+    }
+
+    private function getFileCount($folder)
+    {
+        return $folder->files->count() + $folder->folders->reduce(function ($count, $folder) {
+            return $count + $this->getFileCount($folder);
+        }, 0);
+    }
+
     /**
      * Transform the resource into an array.
      *
@@ -24,7 +39,6 @@ class FolderResource extends JsonResource
         $data = [
             'id' => $this->id,
             'name' => $this->name,
-            'path' => $this->path,
             'owner' => new UserResource($this->owner),
             'boxId' => $this->box_id,
             'links' => [
@@ -34,6 +48,8 @@ class FolderResource extends JsonResource
                     route('boxes.show', ['id' => $this->box->id]),
             ],
             'breadcrumbs' => $this->breadcrumbs(),
+            'folderCount' => $this->getFolderCount($this),
+            'fileCount' => $this->getFileCount($this),
         ];
 
         if (!$this->isChild) {
@@ -47,4 +63,5 @@ class FolderResource extends JsonResource
 
         return $data;
     }
+
 }

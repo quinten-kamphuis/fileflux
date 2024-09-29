@@ -32,14 +32,14 @@ export interface Folder {
         id: number;
         name: string;
     };
-    breadcrumbs: Breadcrumb[];
+    boxId: string;
     links: {
         self: string;
         parent: string;
     };
+    breadcrumbs: Breadcrumb[];
     folderCount: number;
     fileCount: number;
-    boxId: string;
     folders: Folder[];
     files: File[];
 }
@@ -57,6 +57,7 @@ export interface File {
     size: number | null;
     extension: string | null;
     mimeType: string | null;
+    createdAt: string;
     links: {
         self: string;
         parent: string;

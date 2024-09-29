@@ -11,7 +11,7 @@ type Props = {
     variant: 'file' | 'folder' | 'box' | 'up';
     title: string;
     description: string;
-    link: string;
+    link?: string;
     children: React.ReactNode;
 };
 
@@ -39,6 +39,7 @@ export const FileSystemCard = ({
             }
             description={description}
             href={link}
+            className="flex h-48 flex-col justify-between"
         >
             {children}
         </CardWrapper>

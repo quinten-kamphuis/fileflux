@@ -1,3 +1,4 @@
+import { getFoldersAndFilesCountString } from '@/lib/utils';
 import { Box } from '@/types';
 import { IconFile, IconFolder } from '@tabler/icons-react';
 import { FileSystemCard } from './file-system-card';
@@ -11,7 +12,10 @@ export const BoxCard = ({ box }: Props) => {
         <FileSystemCard
             variant="box"
             title={box.name}
-            description="Box content"
+            description={getFoldersAndFilesCountString(
+                box.folderCount,
+                box.fileCount,
+            )}
             link={box.links.self}
         >
             <div className="flex justify-between gap-2">

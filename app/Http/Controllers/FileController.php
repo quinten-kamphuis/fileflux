@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FileActionRequest;
+use App\Http\Requests\FileUploadRequest;
 use App\Http\Resources\FileResource;
 use App\Models\Box;
 use App\Models\File;
@@ -34,7 +34,7 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(FileActionRequest $request)
+    public function store(FileUploadRequest $request)
     {
 
         $file = $request->file('file');
@@ -57,6 +57,7 @@ class FileController extends Controller
             'name' => $file->getClientOriginalName(),
             'mime_type' => $file->getMimeType(),
             'file_size' => $file->getSize(),
+            'extension' => $file->extension(),
             'path' => $path,
         ]);
 

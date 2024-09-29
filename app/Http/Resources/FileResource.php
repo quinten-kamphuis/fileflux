@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,10 +20,11 @@ class FileResource extends JsonResource
             'name' => $this->name,
             'path' => $this->path,
             'owner' => new UserResource($this->owner),
-            'folder' => new FolderResource($this->folder),
-            'size' => $this->size,
+            'size' => $this->file_size,
             'extension' => $this->extension,
-            'mimeType' => $this->mimeType,
+            'mimeType' => $this->mime_type,
+            'createdAt' => (new Carbon($this->created_at))
+                ->format('Y-m-d H:i'),
             'links' => [
                 'self' => route('files.show', ['id' => $this->id]),
                 'parent' => $this->parentFolder ?

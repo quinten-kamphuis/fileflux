@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->string('path');
             $table->unsignedBigInteger('file_size');
             $table->string('mime_type');
+            $table->string('extension');
             $table->timestamps();
         });
     }
