@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use App\HasBreadcrumbs;
+use App\Traits\HasBreadcrumbs;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
 
 class Folder extends Model
 {
@@ -55,5 +54,24 @@ class Folder extends Model
         }
 
         return $breadcrumb;
+    }
+
+    public function getFolderCount($folder)
+    {
+        return $folder->folders->reduce(function ($count, $folder) {
+            return $count + 1 + $this->getFolderCount($folder);
+        }, 0);
+    }
+
+    public function getFileCount($folder)
+    {
+        return $folder->files->count() + $folder->folders->reduce(function ($count, $folder) {
+            return $count + $this->getFileCount($folder);
+        }, 0);
+    }
+
+    public function getType()
+    {
+        return 'folder';
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\HasBreadcrumbs;
+use App\Traits\HasBreadcrumbs;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,12 +26,12 @@ class Box extends Model
         return $this->hasMany(File::class)->where('box_id', $this->id);
     }
 
-    public function allFoldersCount()
+    public function getFolderCount()
     {
         return $this->allFolders()->count();
     }
 
-    public function allFilesCount()
+    public function getFileCount()
     {
         return $this->allFiles()->count();
     }
@@ -51,5 +51,10 @@ class Box extends Model
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function getType()
+    {
+        return 'box';
     }
 }

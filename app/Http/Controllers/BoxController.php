@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Resources\BoxResource;
 use App\Http\Resources\BoxesResource;
 use App\Models\Box;
+use App\Traits\HandlesFolderContents;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Redirect;
 
 class BoxController extends Controller
 {
+    use HandlesFolderContents;
+
     /**
      * Display a listing of the resource.
      */
@@ -58,11 +61,22 @@ class BoxController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
         $box = Box::findOrFail($id);
+        $contents = $this->getContents($request, $box);
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'items' => $contents['items'],
+                'nextCursor' => $contents['next_cursor'],
+            ]);
+        }
+
         return Inertia::render('Box', [
             'box' => new BoxResource($box),
+            'items' => $contents['items'],
+            'nextCursor' => $contents['next_cursor'],
         ]);
     }
 

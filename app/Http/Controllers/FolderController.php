@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFolderRequest;
 use App\Http\Resources\FolderResource;
 use App\Models\Folder;
+use App\Traits\HandlesFolderContents;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Redirect;
 
 class FolderController extends Controller
 {
+    use HandlesFolderContents;
+
     /**
      * Display a listing of the resource.
      */
@@ -47,11 +50,22 @@ class FolderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
         $folder = Folder::findOrFail($id);
+        $contents = $this->getContents($request, $folder);
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'items' => $contents['items'],
+                'nextCursor' => $contents['next_cursor'],
+            ]);
+        }
+
         return Inertia::render('Folder', [
             'folder' => new FolderResource($folder),
+            'items' => $contents['items'],
+            'nextCursor' => $contents['next_cursor'],
         ]);
     }
 

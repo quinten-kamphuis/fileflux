@@ -22,8 +22,6 @@ class BoxResource extends JsonResource
                 'self' => route('boxes.show', ['id' => $this->id]),
             ],
             'breadcrumbs' => $this->breadcrumbs(),
-            'folders' => FolderResource::collection($this->folders),
-            'files' => FileResource::collection($this->files),
         ];
     }
 }

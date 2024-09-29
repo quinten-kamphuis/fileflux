@@ -1,32 +1,32 @@
 import { getFoldersAndFilesCountString } from '@/lib/utils';
-import { Folder } from '@/types';
+import { FileSystemItem } from '@/types';
 import { IconFile, IconFolder } from '@tabler/icons-react';
 import { FileSystemCard } from './file-system-card';
 
 type Props = {
-    folder: Folder;
+    item: FileSystemItem;
 };
 
-export const FolderCard = ({ folder }: Props) => {
+export const FolderCard = ({ item }: Props) => {
     return (
         <FileSystemCard
             variant="folder"
-            title={folder.name}
+            title={item.name}
             description={getFoldersAndFilesCountString(
-                folder.folderCount,
-                folder.fileCount,
+                item.folderCount || 0,
+                item.fileCount || 0,
             )}
-            link={folder.links.self}
+            link={item.links.self}
         >
             <div className="flex justify-end">
                 <div className="flex gap-4">
                     <div className="flex items-center gap-1">
                         <IconFolder />
-                        {folder.folderCount}
+                        {item.folderCount}
                     </div>
                     <div className="flex items-center gap-1">
                         <IconFile />
-                        {folder.fileCount}
+                        {item.fileCount}
                     </div>
                 </div>
             </div>

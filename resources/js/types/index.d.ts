@@ -67,6 +67,29 @@ export interface File {
     breadcrumbs: Breadcrumb[];
 }
 
+export interface FileSystemItem {
+    id: string;
+    name: string;
+    type: NavigationVariant;
+    owner: {
+        id: number;
+        name: string;
+    };
+    boxId: string;
+    parentFolderId: string | null;
+    size: number;
+    mimeType: string;
+    links: {
+        self: string;
+        parent: string;
+        download: string | null;
+        delete: string | null;
+    };
+    folderCount: number | null;
+    fileCount: number | null;
+    createdAt: string;
+}
+
 export interface Breadcrumb {
     id: string;
     name: string;

@@ -19,8 +19,8 @@ class BoxesResource extends JsonResource
             'name' => $this->name,
             'owner' => new UserResource($this->owner),
             'links' => ['self' => route('boxes.show', ['id' => $this->id])],
-            'folderCount' => $this->allFoldersCount(),
-            'fileCount' => $this->allFilesCount(),
+            'folderCount' => $this->getFolderCount(),
+            'fileCount' => $this->getFileCount(),
         ];
     }
 }

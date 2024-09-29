@@ -62,8 +62,6 @@ class FileController extends Controller
         ]);
 
         $fileRecord->save();
-
-        return Redirect::route('files.show', ['id' => $fileRecord->id]);
     }
 
     /**

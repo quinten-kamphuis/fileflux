@@ -3,23 +3,27 @@ import { Link } from '@inertiajs/react';
 import { IconDownload, IconTrash } from '@tabler/icons-react';
 
 type Props = {
-    downloadLink: string;
-    deleteLink: string;
+    downloadLink: string | null;
+    deleteLink: string | null;
 };
 
 export const FileActions = ({ downloadLink, deleteLink }: Props) => {
     return (
         <div className="flex items-center gap-2">
-            <Button variant="secondary" asChild>
-                <a href={downloadLink}>
-                    <IconDownload />
-                </a>
-            </Button>
-            <Button variant="secondary" asChild>
-                <Link href={deleteLink}>
-                    <IconTrash />
-                </Link>
-            </Button>
+            {downloadLink && (
+                <Button variant="secondary" asChild>
+                    <a href={downloadLink}>
+                        <IconDownload />
+                    </a>
+                </Button>
+            )}
+            {deleteLink && (
+                <Button variant="secondary" asChild>
+                    <Link href={deleteLink}>
+                        <IconTrash />
+                    </Link>
+                </Button>
+            )}
         </div>
     );
 };

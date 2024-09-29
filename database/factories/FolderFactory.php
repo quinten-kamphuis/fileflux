@@ -21,7 +21,6 @@ class FolderFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'path' => $this->faker->word,
             'box_id' => function () {
                 return Box::inRandomOrder()->first()->id ?? Box::factory()->create()->id;
             },

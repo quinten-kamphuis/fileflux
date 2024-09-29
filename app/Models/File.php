@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\HasBreadcrumbs;
+use App\Traits\HasBreadcrumbs;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -36,5 +36,10 @@ class File extends Model
     function owner()
     {
         return $this->belongsTo(User::class, "owner_id");
+    }
+
+    public function getType()
+    {
+        return 'file';
     }
 }
