@@ -12,19 +12,15 @@ const UploadFileForm = () => {
         parent_folder_id: folderId,
         file: null as File | null,
     });
-    const [loading, setLoading] = React.useState(false);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setLoading(true);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
         post(route('files.store'), {
             preserveScroll: true,
             onSuccess: () => {
                 reset();
             },
         });
-        setLoading(false);
     };
 
     return (
@@ -55,7 +51,7 @@ const UploadFileForm = () => {
                 )}
             </div>
             <div className="mt-4">
-                <Button type="submit" loading={processing || loading}>
+                <Button type="submit" loading={processing}>
                     Submit
                 </Button>
             </div>

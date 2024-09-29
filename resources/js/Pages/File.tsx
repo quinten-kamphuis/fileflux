@@ -1,6 +1,6 @@
-import { Breadcrumbs } from '@/components/breadcrumbs';
 import { CardWrapper } from '@/components/card-wrapper';
 import { FileActions } from '@/components/file-actions';
+import { NavigationHeader } from '@/components/file-system/headers/navigation-header';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { File } from '@/types';
 import { Head } from '@inertiajs/react';
@@ -14,12 +14,10 @@ export default function FilePage({ file }: Props) {
     return (
         <AuthenticatedLayout
             header={
-                <div className="flex items-center gap-2">
-                    <IconFile />
-                    <h2 className="text-xl font-semibold leading-tight">
-                        <Breadcrumbs breadcrumbs={file.breadcrumbs} />
-                    </h2>
-                </div>
+                <NavigationHeader
+                    variant="file"
+                    breadcrumbs={file.breadcrumbs}
+                />
             }
         >
             <Head title={file.name} />

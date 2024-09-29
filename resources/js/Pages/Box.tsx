@@ -1,18 +1,13 @@
-import { Breadcrumbs } from '@/components/breadcrumbs';
 import { CardWrapper } from '@/components/card-wrapper';
 import { FileActions } from '@/components/file-actions';
+import { NavigationHeader } from '@/components/file-system/headers/navigation-header';
 import { Button } from '@/components/ui/button';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useModal } from '@/lib/context/modal-provider';
 import { useSyncFilesystem } from '@/lib/hooks/use-sync-filesystem';
 import { Box } from '@/types';
 import { Head } from '@inertiajs/react';
-import {
-    IconArrowLeft,
-    IconBox,
-    IconFile,
-    IconFolder,
-} from '@tabler/icons-react';
+import { IconArrowLeft, IconFile, IconFolder } from '@tabler/icons-react';
 
 type Props = {
     box: Box;
@@ -30,12 +25,7 @@ export default function BoxPage({ box }: Props) {
     return (
         <AuthenticatedLayout
             header={
-                <div className="flex items-center gap-2">
-                    <IconBox />
-                    <h2 className="text-xl font-semibold leading-tight">
-                        <Breadcrumbs breadcrumbs={box.breadcrumbs} />
-                    </h2>
-                </div>
+                <NavigationHeader variant="box" breadcrumbs={box.breadcrumbs} />
             }
         >
             <Head title={box.name} />

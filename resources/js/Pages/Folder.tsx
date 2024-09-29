@@ -1,5 +1,5 @@
-import { Breadcrumbs } from '@/components/breadcrumbs';
 import { CardWrapper } from '@/components/card-wrapper';
+import { NavigationHeader } from '@/components/file-system/headers/navigation-header';
 import { Button } from '@/components/ui/button';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useModal } from '@/lib/context/modal-provider';
@@ -25,12 +25,10 @@ export default function FolderPage({ folder }: Props) {
     return (
         <AuthenticatedLayout
             header={
-                <div className="flex items-center gap-2">
-                    <IconFolder />
-                    <h2 className="text-xl font-semibold leading-tight">
-                        <Breadcrumbs breadcrumbs={folder.breadcrumbs} />
-                    </h2>
-                </div>
+                <NavigationHeader
+                    variant="folder"
+                    breadcrumbs={folder.breadcrumbs}
+                />
             }
         >
             <Head title={folder.name} />
