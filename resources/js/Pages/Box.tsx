@@ -1,11 +1,9 @@
 import { FileCard } from '@/components/file-system/cards/file-card';
 import { FolderCard } from '@/components/file-system/cards/folder-card';
 import { UpCard } from '@/components/file-system/cards/up-card';
-import { NavigationHeader } from '@/components/file-system/headers/navigation-header';
+import { Headers } from '@/components/file-system/headers/headers';
 import { CardsSection } from '@/components/file-system/layouts/cards-section';
-import { Button } from '@/components/ui/button';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { useModal } from '@/lib/context/modal-provider';
 import { useSyncFilesystem } from '@/lib/hooks/use-sync-filesystem';
 import { Box } from '@/types';
 import { Head } from '@inertiajs/react';
@@ -21,13 +19,9 @@ export default function BoxPage({ box }: Props) {
 
     const { folders, files } = box;
 
-    const { showModal } = useModal();
-
     return (
         <AuthenticatedLayout
-            header={
-                <NavigationHeader variant="box" breadcrumbs={box.breadcrumbs} />
-            }
+            headers={<Headers variant="box" breadcrumbs={box.breadcrumbs} />}
         >
             <Head title={box.name} />
             <CardsSection>
@@ -38,20 +32,6 @@ export default function BoxPage({ box }: Props) {
                 {files.map((file) => (
                     <FileCard key={file.id} file={file} />
                 ))}
-                <div className="col-span-3 flex items-start gap-4">
-                    <Button
-                        variant="outline"
-                        onClick={() => showModal('createFile')}
-                    >
-                        Upload File
-                    </Button>
-                    <Button
-                        variant="outline"
-                        onClick={() => showModal('createFolder')}
-                    >
-                        Create Folder
-                    </Button>
-                </div>
             </CardsSection>
             <section className="mt-[100vh]">
                 <div className="container">

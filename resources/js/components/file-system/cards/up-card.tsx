@@ -12,9 +12,7 @@ export const UpCard = ({ link }: Props) => {
             description="Go back up one level"
             link={link}
         >
-            <div>
-                <p>Go back up one level.</p>
-            </div>
+            <div></div>
         </FileSystemCard>
     );
 };

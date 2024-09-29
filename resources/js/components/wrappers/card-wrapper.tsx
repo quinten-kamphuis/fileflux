@@ -38,4 +38,10 @@ export const CardWrapper = ({
 };
 
 const LinkWrapper = ({ children, href }: Props) =>
-    href ? <Link href={href}>{children}</Link> : <>{children}</>;
+    href ? (
+        <Link href={href} draggable={false}>
+            {children}
+        </Link>
+    ) : (
+        <>{children}</>
+    );

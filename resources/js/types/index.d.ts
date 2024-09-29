@@ -73,6 +73,8 @@ export interface Breadcrumb {
     link?: string;
 }
 
+export type NavigationVariant = 'box' | 'folder' | 'file';
+
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {

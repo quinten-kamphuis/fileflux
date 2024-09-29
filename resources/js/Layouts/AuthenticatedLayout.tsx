@@ -3,19 +3,21 @@ import { useSyncFilesystem } from '@/lib/hooks/use-sync-filesystem';
 import { cn } from '@/lib/utils';
 import { Link, usePage } from '@inertiajs/react';
 import { IconHome, IconPackageImport } from '@tabler/icons-react';
-import { PropsWithChildren, ReactNode } from 'react';
 
-export default function Authenticated({
-    header,
-    children,
-}: PropsWithChildren<{ header?: ReactNode }>) {
+type Props = {
+    children: React.ReactNode;
+    header?: React.ReactNode;
+    headers?: React.ReactNode;
+};
+
+export default function Authenticated({ children, header, headers }: Props) {
     useSyncFilesystem({});
     const user = usePage().props.auth.user;
 
     return (
         <div className="min-h-screen">
             <div className="border-b bg-background shadow">
-                <nav className="container flex items-center justify-between px-2 py-4">
+                <nav className="container flex items-center justify-between py-4">
                     <div className="flex items-center gap-3">
                         <Button
                             asChild
@@ -79,11 +81,13 @@ export default function Authenticated({
 
             {header && (
                 <header>
-                    <div className="container flex items-center gap-2 px-2 py-6">
+                    <div className="container flex items-center gap-2 py-4">
                         {header}
                     </div>
                 </header>
             )}
+
+            {headers && headers}
 
             <main>{children}</main>
         </div>

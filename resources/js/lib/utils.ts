@@ -22,3 +22,10 @@ export const getFoldersAndFilesCountString = (
     const filesString = fileCount === 1 ? '1 File' : `${fileCount} Files`;
     return `${foldersString}, ${filesString}`;
 };
+
+export const toSentenceCase = (str: string): string => {
+    if (str.length === 0) return str;
+    const words = str.trim().toLowerCase().split(/\s+/);
+    words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
+    return words.join(' ');
+};

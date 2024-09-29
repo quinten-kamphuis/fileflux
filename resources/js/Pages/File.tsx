@@ -1,6 +1,6 @@
 import { FileActions } from '@/components/file-actions';
 import { UpCard } from '@/components/file-system/cards/up-card';
-import { NavigationHeader } from '@/components/file-system/headers/navigation-header';
+import { Headers } from '@/components/file-system/headers/headers';
 import { CardsSection } from '@/components/file-system/layouts/cards-section';
 import { CardWrapper } from '@/components/wrappers/card-wrapper';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
@@ -15,12 +15,7 @@ type Props = {
 export default function FilePage({ file }: Props) {
     return (
         <AuthenticatedLayout
-            header={
-                <NavigationHeader
-                    variant="file"
-                    breadcrumbs={file.breadcrumbs}
-                />
-            }
+            headers={<Headers variant="file" breadcrumbs={file.breadcrumbs} />}
         >
             <Head title={file.name} />
             <CardsSection>
