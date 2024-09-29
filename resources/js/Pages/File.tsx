@@ -34,6 +34,7 @@ export default function FilePage({ file }: Props) {
                         </div>
                     }
                     description="Box content"
+                    className="col-span-3"
                 >
                     <div className="flex justify-between gap-2">
                         <p>{file.owner.name}</p>

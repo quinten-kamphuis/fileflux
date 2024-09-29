@@ -12,12 +12,19 @@ type Props = {
     title?: React.ReactNode | string;
     description?: React.ReactNode | string;
     href?: string;
+    className?: string;
 };
 
-export const CardWrapper = ({ children, title, description, href }: Props) => {
+export const CardWrapper = ({
+    children,
+    title,
+    description,
+    href,
+    className,
+}: Props) => {
     return (
         <LinkWrapper href={href}>
-            <Card>
+            <Card className={className}>
                 <CardHeader>
                     {title && <CardTitle>{title}</CardTitle>}
                     {description && (

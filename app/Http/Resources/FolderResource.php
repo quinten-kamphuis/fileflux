@@ -7,6 +7,13 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class FolderResource extends JsonResource
 {
+    protected $isChild = false;
+
+    public function __construct($resource, $isChild = false)
+    {
+        parent::__construct($resource);
+        $this->isChild = $isChild;
+    }
     /**
      * Transform the resource into an array.
      *
@@ -14,7 +21,7 @@ class FolderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        $data = [
             'id' => $this->id,
             'name' => $this->name,
             'path' => $this->path,
@@ -27,8 +34,17 @@ class FolderResource extends JsonResource
                     route('boxes.show', ['id' => $this->box->id]),
             ],
             'breadcrumbs' => $this->breadcrumbs(),
-            'folders' => FolderResource::collection($this->folders),
-            'files' => FileResource::collection($this->files),
         ];
+
+        if (!$this->isChild) {
+            $data['folders'] = FolderResource::collection(
+                $this->folders->map(function ($folder) {
+                    return new FolderResource($folder, true);
+                })
+            );
+            $data['files'] = FileResource::collection($this->files);
+        }
+
+        return $data;
     }
 }
