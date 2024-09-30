@@ -53,7 +53,8 @@ export interface File {
         name: string;
         email: string;
     };
-    folder: Folder | null;
+    boxId: string;
+    folderId: string | null;
     size: number | null;
     extension: string | null;
     mimeType: string | null;

@@ -108,12 +108,9 @@ class FileController extends Controller
     public function destroy(string $id)
     {
         $file = File::findOrFail($id);
-        $filePath = $file->path;
 
         $file->delete();
 
-        Storage::disk('sftp')->delete($filePath);
-
-        return Redirect::route('boxes.show', ['id' => $file->box_id]);
+        Storage::disk('sftp')->delete($file->path);
     }
 }

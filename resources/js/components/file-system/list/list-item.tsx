@@ -10,13 +10,13 @@ type Props = {
 };
 
 export const ListItem = ({ item }: Props) => {
+    const openItemProps = {
+        className: 'cursor-pointer',
+        onClick: () => router.replace(item.links.self),
+    };
     return (
-        <TableRow
-            key={item.id}
-            onClick={() => router.replace(item.links.self)}
-            className="cursor-pointer"
-        >
-            <TableCell>
+        <TableRow key={item.id}>
+            <TableCell {...openItemProps}>
                 <TooltipWrapper content={toSentenceCase(item.type)}>
                     <div>
                         {item.type === 'folder' && <IconFolder />}
@@ -33,8 +33,10 @@ export const ListItem = ({ item }: Props) => {
                     </span>
                 </TooltipWrapper>
             </TableCell>
-            <TableCell>
-                <TooltipWrapper>{item.createdAt}</TooltipWrapper>
+            <TableCell {...openItemProps}>
+                {item.type === 'file' && (
+                    <TooltipWrapper>{item.createdAt}</TooltipWrapper>
+                )}
             </TableCell>
             <TableCell className="text-right">
                 <Link href={item.links.delete ?? '#'} className="text-red-500">

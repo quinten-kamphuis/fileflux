@@ -1,9 +1,10 @@
 import { FileActions } from '@/components/file-actions';
+import { CardsGrid } from '@/components/file-system/cards/cards-grid';
 import { UpCard } from '@/components/file-system/cards/up-card';
-import { Headers } from '@/components/file-system/headers/headers';
-import { CardsSection } from '@/components/file-system/layouts/cards-section';
+import { NavigationHeader } from '@/components/file-system/headers/navigation-header';
 import { CardWrapper } from '@/components/wrappers/card-wrapper';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { useSyncFilesystem } from '@/lib/hooks/use-sync-filesystem';
 import { File } from '@/types';
 import { Head } from '@inertiajs/react';
 import { IconFile } from '@tabler/icons-react';
@@ -13,12 +14,22 @@ type Props = {
 };
 
 export default function FilePage({ file }: Props) {
+    useSyncFilesystem({
+        folderId: file.folderId ?? undefined,
+        boxId: file.boxId,
+    });
+
     return (
         <AuthenticatedLayout
-            headers={<Headers variant="file" breadcrumbs={file.breadcrumbs} />}
+            header={
+                <NavigationHeader
+                    variant="file"
+                    breadcrumbs={file.breadcrumbs}
+                />
+            }
         >
             <Head title={file.name} />
-            <CardsSection>
+            <CardsGrid>
                 <UpCard link={file.links.parent} />
                 <CardWrapper
                     key={file.id}
@@ -39,7 +50,7 @@ export default function FilePage({ file }: Props) {
                         />
                     </div>
                 </CardWrapper>
-            </CardsSection>
+            </CardsGrid>
             <section className="mt-[100vh]">
                 <pre>{JSON.stringify(file, null, 2)}</pre>
             </section>
