@@ -6,13 +6,15 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
+import { useActionsStore } from '@/lib/store/actions-store';
 import { FileSystemItem } from '@/types';
 import { router } from '@inertiajs/react';
 import { IconArrowLeft } from '@tabler/icons-react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { InfiniteEnd, InfiniteLoader } from '../infinite-scroll-helpers';
-import ListItem from '../list/list-item';
-import UpItem from '../list/up-item';
+import { ListItem } from '../list/list-item';
+import { NewFolderItem } from '../list/new-folder-item';
+import { UpItem } from '../list/up-item';
 
 type Props = {
     items: FileSystemItem[];
@@ -22,6 +24,7 @@ type Props = {
 };
 
 export const ListSection = ({ items, loadMore, hasMore, upLink }: Props) => {
+    const { isCreatingFolder } = useActionsStore();
     return (
         <section>
             <InfiniteScroll
@@ -34,10 +37,10 @@ export const ListSection = ({ items, loadMore, hasMore, upLink }: Props) => {
                 <Table className="container">
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="w-[100px]">Type</TableHead>
-                            <TableHead>Name</TableHead>
+                            <TableHead className="w-[50px]">Type</TableHead>
+                            <TableHead className="w-96">Name</TableHead>
                             <TableHead>Uploaded</TableHead>
-                            <TableHead className="text-right">
+                            <TableHead className="w-[50px] text-right">
                                 Actions
                             </TableHead>
                         </TableRow>
@@ -52,6 +55,7 @@ export const ListSection = ({ items, loadMore, hasMore, upLink }: Props) => {
                             </TableCell>
                             <TableCell colSpan={3}>Go up</TableCell>
                         </TableRow>
+                        {isCreatingFolder && <NewFolderItem />}
                         {items.map((item) => (
                             <ListItem key={item.id} item={item} />
                         ))}

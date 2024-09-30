@@ -23,19 +23,19 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Box::factory()
-            ->create()
-            ->each(function ($box) {
-                Folder::factory()
-                    ->count(200)
-                    ->for($box)
-                    ->create();
+        // Box::factory()
+        //     ->create()
+        //     ->each(function ($box) {
+        //         Folder::factory()
+        //             ->count(200)
+        //             ->for($box)
+        //             ->create();
 
-                File::factory()
-                    ->count(200)
-                    ->for($box)
-                    ->create();
-            });
+        //         File::factory()
+        //             ->count(200)
+        //             ->for($box)
+        //             ->create();
+        //     });
 
 
         // Box::factory()

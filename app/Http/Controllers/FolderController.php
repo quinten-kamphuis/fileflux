@@ -8,7 +8,6 @@ use App\Models\Folder;
 use App\Traits\HandlesFolderContents;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Redirect;
 
 class FolderController extends Controller
 {
@@ -36,6 +35,7 @@ class FolderController extends Controller
     public function store(StoreFolderRequest $request)
     {
         $data = $request->validated();
+
 
         $folder = new Folder([
             'name' => $data['name'],

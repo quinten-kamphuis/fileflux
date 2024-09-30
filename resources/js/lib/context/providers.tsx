@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ModalProvider } from './modal-provider';
 
@@ -8,7 +9,10 @@ type Props = {
 const Providers = ({ children }: Props) => {
     return (
         <ModalProvider>
-            <TooltipProvider>{children}</TooltipProvider>
+            <TooltipProvider>
+                {children}
+                <Toaster />
+            </TooltipProvider>
         </ModalProvider>
     );
 };

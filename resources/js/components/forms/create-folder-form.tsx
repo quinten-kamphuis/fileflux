@@ -39,7 +39,6 @@ const CreateFolderForm = () => {
                         {errors.name}
                     </div>
                 )}
-                <pre>{JSON.stringify(errors, null, 2)}</pre>
             </div>
             <div className="mt-4">
                 <Button type="submit" loading={processing}>

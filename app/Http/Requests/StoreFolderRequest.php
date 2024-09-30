@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Folder;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreFolderRequest extends FormRequest
@@ -22,9 +23,25 @@ class StoreFolderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                function ($attribute, $value, $fail) {
+                    $exists = Folder::query()
+                        ->where($attribute, $value)
+                        ->where('box_id', $this->box_id)
+                        ->where('parent_folder_id', $this->parent_folder_id)
+                        ->exists();
+
+                    if ($exists) {
+                        $fail('This folder already exists in this location.');
+                    }
+                }
+            ],
             'parent_folder_id' => ['nullable', 'exists:folders,id'],
             'box_id' => ['required', 'exists:boxes,id'],
         ];
     }
 }
+

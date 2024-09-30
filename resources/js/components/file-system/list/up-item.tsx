@@ -1,7 +1,7 @@
 import { TableCell, TableRow } from '@/components/ui/table';
 import { IconArrowUp } from '@tabler/icons-react';
 
-const UpItem = () => {
+export const UpItem = () => {
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
@@ -24,5 +24,3 @@ const UpItem = () => {
         </TableRow>
     );
 };
-
-export default UpItem;
