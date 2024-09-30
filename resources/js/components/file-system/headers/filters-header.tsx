@@ -22,6 +22,7 @@ export const FiltersHeader = () => {
                 placeholder="Search"
                 value={searchValue}
                 onChange={(e) => updateFilters({ searchValue: e.target.value })}
+                className="w-64"
             />
             <SelectWrapper
                 items={itemTypeFilter}
@@ -29,6 +30,7 @@ export const FiltersHeader = () => {
                 onValueChange={(value) =>
                     updateFilters({ itemType: value as ItemTypeFilter })
                 }
+                className="w-36"
             />
         </div>
     );
