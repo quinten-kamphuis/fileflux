@@ -20,6 +20,7 @@ class FileFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
+            'filename' => $this->faker->word,
             'box_id' => function () {
                 return Box::inRandomOrder()->first()->id ?? Box::factory()->create()->id;
             },
@@ -27,7 +28,8 @@ class FileFactory extends Factory
             'parent_folder_id' => null,
             'path' => $this->faker->word,
             'file_size' => $this->faker->randomNumber(),
-            'mime_type' => $this->faker->word
+            'mime_type' => $this->faker->word,
+            'extension' => $this->faker->word,
         ];
     }
 

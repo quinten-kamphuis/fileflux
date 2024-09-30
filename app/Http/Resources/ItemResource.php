@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -32,7 +33,8 @@ class ItemResource extends JsonResource
                 $this->getFolderCount($this) : null,
             'fileCount' => $this->getType() === 'folder' ?
                 $this->getFileCount($this) : null,
-            'createdAt' => $this->created_at,
+            'createdAt' => (new Carbon($this->created_at))
+                ->format('Y-m-d H:i'),
         ];
     }
 }

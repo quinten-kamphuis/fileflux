@@ -40,7 +40,7 @@ trait HandlesFolderContents
         $files = $filesQuery->orderBy('name')->take($limit + 1)->get();
 
         // Merge folders and files
-        $items = $folders->merge($files)->values();
+        $items = $folders->concat($files)->sortBy('name')->values();
 
         $hasMore = $items->count() > $limit;
         $items = $items->take($limit);

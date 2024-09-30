@@ -19,7 +19,7 @@ export const FileActions = ({ downloadLink, deleteLink }: Props) => {
             )}
             {deleteLink && (
                 <Button variant="secondary" asChild>
-                    <Link href={deleteLink}>
+                    <Link href={deleteLink} preserveScroll>
                         <IconTrash />
                     </Link>
                 </Button>

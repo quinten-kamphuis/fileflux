@@ -27,7 +27,12 @@ class DatabaseSeeder extends Seeder
             ->create()
             ->each(function ($box) {
                 Folder::factory()
-                    ->count(400)
+                    ->count(200)
+                    ->for($box)
+                    ->create();
+
+                File::factory()
+                    ->count(200)
                     ->for($box)
                     ->create();
             });
