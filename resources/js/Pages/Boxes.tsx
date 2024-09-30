@@ -1,6 +1,6 @@
 import { BoxCard } from '@/components/file-system/cards/box-card';
 import { CardsGrid } from '@/components/file-system/cards/cards-grid';
-import { Headers } from '@/components/file-system/headers/headers';
+import { NavigationHeader } from '@/components/file-system/headers/navigation-header';
 import { CreateBoxForm } from '@/components/forms/create-box-form';
 import { Button } from '@/components/ui/button';
 import {
@@ -24,8 +24,8 @@ type Props = {
 export default function Boxes({ boxes, showCreateModal }: Props) {
     return (
         <AuthenticatedLayout
-            headers={
-                <Headers
+            header={
+                <NavigationHeader
                     variant="box"
                     breadcrumbs={[{ id: '1', name: 'Boxes' }]}
                 />

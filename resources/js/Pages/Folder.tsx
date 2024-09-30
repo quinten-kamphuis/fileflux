@@ -1,5 +1,5 @@
+import { FileSystem } from '@/components/file-system/file-system';
 import { Headers } from '@/components/file-system/headers/headers';
-import { CardsSection } from '@/components/file-system/layouts/cards-section';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useSyncFilesystem } from '@/lib/hooks/use-sync-filesystem';
 import { FileSystemItem, Folder } from '@/types';
@@ -28,7 +28,8 @@ export default function FolderPage({
             }
         >
             <Head title={folder.name} />
-            <CardsSection
+
+            <FileSystem
                 upLink={folder.links.parent}
                 initialItems={initialItems}
                 initialNextCursor={initialNextCursor}

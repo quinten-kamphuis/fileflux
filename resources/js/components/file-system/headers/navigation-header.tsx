@@ -6,9 +6,14 @@ import { LayoutHeader } from './layout-header';
 type Props = {
     variant: NavigationVariant;
     breadcrumbs: Breadcrumb[];
+    showLayoutHeader?: boolean;
 };
 
-export const NavigationHeader = ({ variant, breadcrumbs }: Props) => {
+export const NavigationHeader = ({
+    variant,
+    breadcrumbs,
+    showLayoutHeader,
+}: Props) => {
     return (
         <div className="flex w-full items-start justify-between gap-8">
             <div className="flex items-start gap-2">
@@ -19,7 +24,7 @@ export const NavigationHeader = ({ variant, breadcrumbs }: Props) => {
                 </div>
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
             </div>
-            <LayoutHeader />
+            {showLayoutHeader && <LayoutHeader />}
         </div>
     );
 };

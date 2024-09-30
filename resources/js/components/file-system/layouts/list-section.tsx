@@ -7,10 +7,11 @@ import {
     TableRow,
 } from '@/components/ui/table';
 import { FileSystemItem } from '@/types';
-import { Link, router } from '@inertiajs/react';
-import { IconArrowLeft, IconFile, IconFolder } from '@tabler/icons-react';
+import { router } from '@inertiajs/react';
+import { IconArrowLeft } from '@tabler/icons-react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { InfiniteEnd, InfiniteLoader } from '../infinite-scroll-helpers';
+import ListItem from '../list/list-item';
 import UpItem from '../list/up-item';
 
 type Props = {
@@ -51,50 +52,10 @@ export const ListSection = ({ items, loadMore, hasMore, upLink }: Props) => {
                             </TableCell>
                             <TableCell colSpan={3}>Go up</TableCell>
                         </TableRow>
-                        {items.map((item) => {
-                            return item.type === 'folder' ? (
-                                <TableRow
-                                    key={item.id}
-                                    onClick={() =>
-                                        router.replace(item.links.self)
-                                    }
-                                    className="cursor-pointer"
-                                >
-                                    <TableCell>
-                                        <IconFolder />
-                                        <span className="sr-only">Folder</span>
-                                    </TableCell>
-                                    <TableCell>{item.name}</TableCell>
-                                    <TableCell>{item.createdAt}</TableCell>
-                                    <TableCell className="text-right">
-                                        <Link
-                                            href={item.links.delete ?? '#'}
-                                            className="text-red-500"
-                                        >
-                                            Delete
-                                        </Link>
-                                    </TableCell>
-                                </TableRow>
-                            ) : (
-                                <TableRow key={item.id}>
-                                    <TableCell>
-                                        <IconFile />
-                                        <span className="sr-only">File</span>
-                                    </TableCell>
-                                    <TableCell>{item.name}</TableCell>
-                                    <TableCell>{item.createdAt}</TableCell>
-                                    <TableCell className="text-right">
-                                        <Link
-                                            href={item.links.delete ?? '#'}
-                                            className="text-red-500"
-                                        >
-                                            Delete
-                                        </Link>
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        })}
-                        {!hasMore && <UpItem />}
+                        {items.map((item) => (
+                            <ListItem key={item.id} item={item} />
+                        ))}
+                        {!hasMore && items.length > 50 && <UpItem />}
                     </TableBody>
                 </Table>
             </InfiniteScroll>

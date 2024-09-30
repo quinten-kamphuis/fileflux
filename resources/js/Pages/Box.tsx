@@ -27,9 +27,9 @@ export default function BoxPage({
             <Head title={box.name} />
 
             <FileSystem
-                upLink={route('boxes.index')}
                 initialItems={initialItems}
                 initialNextCursor={initialNextCursor}
+                upLink={route('boxes.index')}
             />
         </AuthenticatedLayout>
     );
