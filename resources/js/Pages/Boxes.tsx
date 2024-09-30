@@ -1,6 +1,6 @@
 import { BoxCard } from '@/components/file-system/cards/box-card';
+import { CardsGrid } from '@/components/file-system/cards/cards-grid';
 import { Headers } from '@/components/file-system/headers/headers';
-import { CardsGrid } from '@/components/file-system/layouts/cards-grid';
 import { CreateBoxForm } from '@/components/forms/create-box-form';
 import { Button } from '@/components/ui/button';
 import {

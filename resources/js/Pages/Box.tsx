@@ -1,5 +1,5 @@
+import { FileSystem } from '@/components/file-system/file-system';
 import { Headers } from '@/components/file-system/headers/headers';
-import { CardsSection } from '@/components/file-system/layouts/cards-section';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useSyncFilesystem } from '@/lib/hooks/use-sync-filesystem';
 import { Box, FileSystemItem } from '@/types';
@@ -26,7 +26,7 @@ export default function BoxPage({
         >
             <Head title={box.name} />
 
-            <CardsSection
+            <FileSystem
                 upLink={route('boxes.index')}
                 initialItems={initialItems}
                 initialNextCursor={initialNextCursor}

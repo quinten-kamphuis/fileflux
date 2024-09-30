@@ -1,13 +1,7 @@
-import { Button } from '@/components/ui/button';
 import { Breadcrumb, NavigationVariant } from '@/types';
-import {
-    IconBox,
-    IconFile,
-    IconFolder,
-    IconLayout,
-    IconList,
-} from '@tabler/icons-react';
+import { IconBox, IconFile, IconFolder } from '@tabler/icons-react';
 import { Breadcrumbs } from './breadcrumbs';
+import { LayoutHeader } from './layout-header';
 
 type Props = {
     variant: NavigationVariant;
@@ -25,14 +19,7 @@ export const NavigationHeader = ({ variant, breadcrumbs }: Props) => {
                 </div>
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
             </div>
-            <div className="flex items-center gap-2">
-                <Button variant="outline" size="icon" className="size-8">
-                    <IconList />
-                </Button>
-                <Button variant="outline" size="icon" className="size-8">
-                    <IconLayout />
-                </Button>
-            </div>
+            <LayoutHeader />
         </div>
     );
 };
