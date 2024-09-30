@@ -9,13 +9,27 @@ import { toSentenceCase } from '@/lib/utils';
 
 type Props = {
     items: string[];
-    placeholder: string;
+    placeholder?: string;
     className?: string;
+    value?: string;
+    defaultValue?: string;
+    onValueChange: (value: string) => void;
 };
 
-export const SelectWrapper = ({ items, placeholder, className }: Props) => {
+export const SelectWrapper = ({
+    items,
+    placeholder,
+    className,
+    value,
+    defaultValue,
+    onValueChange,
+}: Props) => {
     return (
-        <Select>
+        <Select
+            value={value}
+            defaultValue={defaultValue}
+            onValueChange={onValueChange}
+        >
             <SelectTrigger className={className}>
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>

@@ -1,6 +1,7 @@
+import { useFiltersStore } from '@/lib/store/filters-store';
 import { FileSystemItem } from '@/types';
 import axios from 'axios';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { FileCard } from '../cards/file-card';
 import { FolderCard } from '../cards/folder-card';
@@ -23,37 +24,68 @@ export const CardsSection = ({
     const [hasMore, setHasMore] = useState(!!nextCursor);
     const [isLoading, setIsLoading] = useState(false);
 
+    const { searchValue, itemType } = useFiltersStore();
+
+    const fetchItems = useCallback(
+        (cursor: string | null = null) => {
+            setIsLoading(true);
+            axios
+                .get(route(route().current() ?? '', route().params), {
+                    params: {
+                        cursor: cursor,
+                        search: searchValue,
+                        item_type: itemType,
+                    },
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                })
+                .then((response) => {
+                    if (cursor) {
+                        setItemsList((prevItems) => [
+                            ...prevItems,
+                            ...response.data.items,
+                        ]);
+                    } else {
+                        setItemsList(response.data.items);
+                    }
+                    setNextCursor(response.data.nextCursor);
+                    setHasMore(!!response.data.nextCursor);
+                })
+                .catch((error) => {
+                    console.error('Error loading items', error);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        },
+        [searchValue, itemType],
+    );
+
+    useEffect(() => {
+        fetchItems();
+    }, [fetchItems]);
+
     const loadMore = useCallback(() => {
         if (!nextCursor || isLoading) return;
+        fetchItems(nextCursor);
+    }, [nextCursor, isLoading, fetchItems]);
 
-        setIsLoading(true);
-        axios
-            .get(route(route().current() ?? '', route().params), {
-                params: { cursor: nextCursor },
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                },
-            })
-            .then((response) => {
-                setItemsList((prevItems) => [
-                    ...prevItems,
-                    ...response.data.items,
-                ]);
-                setNextCursor(response.data.nextCursor);
-                setHasMore(!!response.data.nextCursor);
-            })
-            .catch((error) => {
-                console.error('Error loading more items', error);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    }, [nextCursor, isLoading]);
+    const filteredItems = itemsList.filter((item) => {
+        if (itemType === 'folders' && item.type !== 'folder') return false;
+        if (itemType === 'files' && item.type === 'folder') return false;
+        if (
+            searchValue &&
+            !item.name.toLowerCase().includes(searchValue.toLowerCase())
+        )
+            return false;
+        return true;
+    });
 
     return (
         <section>
             <InfiniteScroll
-                dataLength={itemsList.length}
+                dataLength={filteredItems.length}
                 next={loadMore}
                 hasMore={hasMore}
                 loader={<InfiniteLoader />}
@@ -61,7 +93,7 @@ export const CardsSection = ({
             >
                 <div className="container grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6">
                     <UpCard link={upLink} />
-                    {itemsList.map((item) => {
+                    {filteredItems.map((item) => {
                         return item.type === 'folder' ? (
                             <FolderCard key={item.id} item={item} />
                         ) : (

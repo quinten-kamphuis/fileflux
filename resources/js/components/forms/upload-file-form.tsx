@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import useFileSystemStore from '@/lib/store/file-system-store';
+import { useFileSystemStore } from '@/lib/store/file-system-store';
 import { useForm } from '@inertiajs/react';
 import React from 'react';
 

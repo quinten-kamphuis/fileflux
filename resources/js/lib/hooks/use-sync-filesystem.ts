@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import useFileSystemStore from '../store/file-system-store';
+import { useFileSystemStore } from '../store/file-system-store';
 
 type Props = {
     folderId?: string;

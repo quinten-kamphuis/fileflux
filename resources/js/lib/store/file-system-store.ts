@@ -10,10 +10,8 @@ interface FileSystemState {
     ) => void;
 }
 
-const useFileSystemStore = create<FileSystemState>((set) => ({
+export const useFileSystemStore = create<FileSystemState>((set) => ({
     folderId: null,
     boxId: null,
     updateFileSystem: (updates) => set((state) => ({ ...state, ...updates })),
 }));
-
-export default useFileSystemStore;
