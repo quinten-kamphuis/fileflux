@@ -7,6 +7,7 @@ import { FileCard } from '../cards/file-card';
 import { FolderCard } from '../cards/folder-card';
 import { UpCard } from '../cards/up-card';
 import { InfiniteEnd, InfiniteLoader } from '../infinite-scroll-helpers';
+import { CardsGrid } from './cards-grid';
 
 type Props = {
     upLink: string;
@@ -91,7 +92,7 @@ export const CardsSection = ({
                 loader={<InfiniteLoader />}
                 endMessage={<InfiniteEnd />}
             >
-                <div className="container grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6">
+                <CardsGrid>
                     <UpCard link={upLink} />
                     {filteredItems.map((item) => {
                         return item.type === 'folder' ? (
@@ -100,7 +101,7 @@ export const CardsSection = ({
                             <FileCard key={item.id} item={item} />
                         );
                     })}
-                </div>
+                </CardsGrid>
             </InfiniteScroll>
         </section>
     );

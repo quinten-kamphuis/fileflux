@@ -1,5 +1,6 @@
 import { BoxCard } from '@/components/file-system/cards/box-card';
 import { Headers } from '@/components/file-system/headers/headers';
+import { CardsGrid } from '@/components/file-system/layouts/cards-grid';
 import { CreateBoxForm } from '@/components/forms/create-box-form';
 import { Button } from '@/components/ui/button';
 import {
@@ -33,24 +34,19 @@ export default function Boxes({ boxes, showCreateModal }: Props) {
             <Head title="Boxes" />
 
             <section>
-                <div className="container space-y-4">
-                    <div className="grid grid-cols-3 gap-6">
-                        {boxes.map((box) => (
-                            <BoxCard key={box.id} box={box} />
-                        ))}
-                    </div>
-                    <div className="flex items-center justify-center gap-2 py-16">
-                        <p className="text-lg font-bold">
-                            Need to create a new box?
-                        </p>
-                        <Button className="ml-2" variant="outline" asChild>
-                            <Link href={route('boxes.create')}>Create Box</Link>
-                        </Button>
-                    </div>
+                <CardsGrid>
+                    {boxes.map((box) => (
+                        <BoxCard key={box.id} box={box} />
+                    ))}
+                </CardsGrid>
+                <div className="flex items-center justify-center gap-2 py-16">
+                    <p className="text-lg font-bold">
+                        Need to create a new box?
+                    </p>
+                    <Button className="ml-2" variant="outline" asChild>
+                        <Link href={route('boxes.create')}>Create Box</Link>
+                    </Button>
                 </div>
-            </section>
-            <section className="mt-[100vh]">
-                <pre>{JSON.stringify(boxes, null, 2)}</pre>
             </section>
 
             <Dialog
