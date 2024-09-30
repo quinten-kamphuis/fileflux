@@ -18,32 +18,19 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
 
-Route::get('/boxes', [BoxController::class, 'index'])
-    ->middleware(['auth', 'verified'])->name('boxes.index');
-Route::get('/boxes/create', [BoxController::class, 'create'])
-    ->middleware(['auth', 'verified'])->name('boxes.create');
-Route::post('/boxes/store', [BoxController::class, 'store'])->name('boxes.store');
-Route::get('/box/{id}', [BoxController::class, 'show'])
-    ->middleware(['auth', 'verified'])->name('boxes.show');
+    Route::resource('boxes', BoxController::class);
+    Route::resource('folders', FolderController::class);
+    Route::resource('files', FileController::class);
 
-Route::get('/folder/{id}', [FolderController::class, 'show'])
-    ->middleware(['auth', 'verified'])->name('folders.show');
-Route::post('/folder/store', [FolderController::class, 'store'])
-    ->middleware(['auth', 'verified'])->name('folders.store');
+    Route::get('/folders/download/{folder}', [FolderController::class, 'download'])->name('folders.download');
 
-Route::get('/file/create', [FileController::class, 'create'])
-    ->middleware(['auth', 'verified'])->name('files.create');
-Route::post('file/store', [FileController::class, 'store'])
-    ->middleware(['auth', 'verified'])->name('files.store');
-Route::get('/file/download/{id}', [FileController::class, 'download'])
-    ->middleware(['auth', 'verified'])->name('files.download');
-Route::get('/file/delete/{id}', [FileController::class, 'destroy'])
-    ->middleware(['auth', 'verified'])->name('files.destroy');
-Route::get('/file/{id}', [FileController::class, 'show'])
-    ->middleware(['auth', 'verified'])->name('files.show');
+    Route::get('/files/download/{file}', [FileController::class, 'download'])
+        ->name('files.download');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

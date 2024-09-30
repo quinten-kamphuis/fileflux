@@ -21,13 +21,15 @@ class ItemResource extends JsonResource
             'mimeType' => $this->mime_type,
             'links' => [
                 'self' => $this->getType() === 'folder' ?
-                    route('folders.show', ['id' => $this->id]) :
-                    route('files.show', ['id' => $this->id]),
-                'parent' => $this->parent_folder_id ? route('folders.show', ['id' => $this->parent_folder_id]) : route('boxes.show', ['id' => $this->box_id]),
+                    route('folders.show', ['folder' => $this->id]) :
+                    route('files.show', ['file' => $this->id]),
+                'parent' => $this->parent_folder_id ?
+                    route('folders.show', ['folder' => $this->parent_folder_id]) :
+                    route('boxes.show', ['box' => $this->box_id]),
                 'download' => $this->getType() === 'file' ?
-                    route('files.download', ['id' => $this->id]) : null,
+                    route('files.download', ['file' => $this->id]) : null,
                 'delete' => $this->getType() === 'file' ?
-                    route('files.destroy', ['id' => $this->id]) : null,
+                    route('files.destroy', ['file' => $this->id]) : null,
             ],
             'folderCount' => $this->getType() === 'folder' ?
                 $this->getFolderCount($this) : null,

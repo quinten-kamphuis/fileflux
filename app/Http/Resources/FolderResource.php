@@ -20,10 +20,13 @@ class FolderResource extends JsonResource
             'owner' => new UserResource($this->owner),
             'boxId' => $this->box_id,
             'links' => [
-                'self' => route('folders.show', ['id' => $this->id]),
+                'self' => route('folders.show', ['folder' => $this->id]),
                 'parent' => $this->parentFolder ?
-                    route('folders.show', ['id' => $this->parentFolder->id]) :
-                    route('boxes.show', ['id' => $this->box->id]),
+                    route('folders.show', ['folder' => $this->parentFolder->id]) :
+                    route('boxes.show', ['box' => $this->box->id]),
+                'download' =>
+                    route('folders.download', ['folder' => $this->id]),
+                'delete' => route('folders.destroy', ['folder' => $this->id]),
             ],
             'breadcrumbs' => $this->breadcrumbs(),
             'folderCount' => $this->getFolderCount($this),

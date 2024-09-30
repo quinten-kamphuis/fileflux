@@ -90,6 +90,6 @@ class FolderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        dd('destroy');
     }
 }

@@ -24,7 +24,7 @@ trait HasBreadcrumbs
             $breadcrumbs[] = [
                 'id' => $folder->id,
                 'name' => $folder->name,
-                'link' => route('folders.show', ['id' => $folder->id])
+                'link' => route('folders.show', ['folder' => $folder->id])
             ];
             $currentItem = $folder;
         }
@@ -35,7 +35,7 @@ trait HasBreadcrumbs
             $breadcrumbs[] = [
                 'id' => $box->id,
                 'name' => $box->name,
-                'link' => route('boxes.show', ['id' => $box->id])
+                'link' => route('boxes.show', ['box' => $box->id])
             ];
         }
 

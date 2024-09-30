@@ -19,7 +19,7 @@ class BoxResource extends JsonResource
             'name' => $this->name,
             'owner' => new UserResource($this->owner),
             'links' => [
-                'self' => route('boxes.show', ['id' => $this->id]),
+                'self' => route('boxes.show', ['box' => $this->id]),
             ],
             'breadcrumbs' => $this->breadcrumbs(),
         ];
