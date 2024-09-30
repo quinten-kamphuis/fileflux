@@ -15,7 +15,7 @@ export default function Authenticated({ children, header, headers }: Props) {
     const user = usePage().props.auth.user;
 
     return (
-        <div className="min-h-screen">
+        <div className="min-h-[99svh]">
             <div className="border-b bg-background shadow">
                 <nav className="container flex items-center justify-between py-4">
                     <div className="flex items-center gap-3">

@@ -7,7 +7,7 @@ export default function Welcome({
     return (
         <>
             <Head title="Welcome" />
-            <div className="relative flex min-h-screen flex-col items-center justify-start selection:bg-[#FF2D20] selection:text-white">
+            <div className="relative flex min-h-[99svh] flex-col items-center justify-start selection:bg-[#FF2D20] selection:text-white">
                 <div className="w-full border-b">
                     <header className="container py-4">
                         <nav className="-mx-3 flex flex-1 justify-end">
