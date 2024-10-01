@@ -1,3 +1,4 @@
+import { useActionsStore } from '@/lib/store/actions-store';
 import { useFiltersStore } from '@/lib/store/filters-store';
 import { useLayoutStore } from '@/lib/store/layout-store';
 import { FileSystemItem } from '@/types';
@@ -23,6 +24,8 @@ export const FileSystem = ({
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchValue, itemType } = useFiltersStore();
+
+    const { cancelCreateFolder } = useActionsStore();
 
     const { layout } = useLayoutStore();
 
@@ -66,8 +69,9 @@ export const FileSystem = ({
         fetchItems();
         return () => {
             setItemsList(initialItems);
+            cancelCreateFolder();
         };
-    }, [fetchItems, initialItems]);
+    }, [fetchItems, initialItems, cancelCreateFolder]);
 
     const loadMore = useCallback(() => {
         if (!nextCursor || isLoading) return;

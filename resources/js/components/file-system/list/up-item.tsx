@@ -1,26 +1,21 @@
 import { TableCell, TableRow } from '@/components/ui/table';
-import { IconArrowUp } from '@tabler/icons-react';
+import { router } from '@inertiajs/react';
+import { IconArrowLeft } from '@tabler/icons-react';
 
-export const UpItem = () => {
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
-    };
+type Props = {
+    upLink: string;
+};
 
+export const UpItem = ({ upLink }: Props) => {
     return (
-        <TableRow>
-            <TableCell
-                colSpan={4}
-                className="cursor-pointer underline-offset-4 hover:underline"
-                onClick={() => scrollToTop()}
-            >
-                <div className="flex items-center justify-center gap-2">
-                    Scroll back to top
-                    <IconArrowUp />
-                </div>
+        <TableRow
+            onClick={() => router.replace(upLink)}
+            className="cursor-pointer"
+        >
+            <TableCell>
+                <IconArrowLeft />
             </TableCell>
+            <TableCell colSpan={3}>Go up</TableCell>
         </TableRow>
     );
 };

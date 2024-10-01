@@ -6,6 +6,7 @@ import { IconFolderPlus, IconUpload } from '@tabler/icons-react';
 export const ActionsHeader = () => {
     const { showModal } = useModal();
     const { isCreatingFolder, showCreateFolder } = useActionsStore();
+
     return (
         <div className="flex items-center gap-2">
             <Button variant="outline" onClick={() => showModal('createFile')}>

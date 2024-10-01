@@ -1,5 +1,5 @@
 import { Input } from '@/components/ui/input';
-import { TableCell, TableRow } from '@/components/ui/table';
+import { CardWrapper } from '@/components/wrappers/card-wrapper';
 import { useActionsStore } from '@/lib/store/actions-store';
 import { useFileSystemStore } from '@/lib/store/file-system-store';
 import { router, useForm } from '@inertiajs/react';
@@ -8,7 +8,7 @@ import { useRef } from 'react';
 import { toast } from 'sonner';
 import { NewFolderButtons } from '../new-folder-buttons';
 
-export const NewFolderItem = () => {
+export const NewFolderCard = () => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const { boxId, folderId } = useFileSystemStore((state) => state);
@@ -63,33 +63,36 @@ export const NewFolderItem = () => {
             });
         }
     };
-
     return (
-        <TableRow>
-            <TableCell>
-                <IconFolder />
-            </TableCell>
-            <TableCell colSpan={2} className="p-0">
-                <Input
-                    placeholder="New folder name"
-                    className="w-full"
-                    autoFocus
-                    onFocus={scrollToTop}
-                    value={data.name}
-                    ref={inputRef}
-                    onChange={(e) => setData('name', e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    onBlur={(e) => e.target.focus()}
-                />
-            </TableCell>
-            <TableCell className="flex items-center justify-center gap-2">
+        <CardWrapper
+            title={
+                <div className="flex items-start gap-2">
+                    <div className="size-6 shrink-0">
+                        <IconFolder />
+                    </div>
+                    <Input
+                        className="-mt-2 ml-2 w-full"
+                        placeholder="Folder name"
+                        autoFocus={true}
+                        onBlur={(e) => e.target.focus()}
+                        onFocus={scrollToTop}
+                        onKeyDown={handleKeyDown}
+                        value={data.name}
+                        onChange={(e) => setData('name', e.target.value)}
+                    />
+                </div>
+            }
+            description="Create a new folder"
+            className="flex h-48 flex-col justify-between"
+        >
+            <div className="flex justify-end gap-2">
                 <NewFolderButtons
                     cancelCreateFolder={cancelCreateFolder}
                     handleCreateFolder={handleCreateFolder}
                     cancelDisabled={processing}
                     confirmDisabled={!data.name || processing}
                 />
-            </TableCell>
-        </TableRow>
+            </div>
+        </CardWrapper>
     );
 };

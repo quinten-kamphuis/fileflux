@@ -1,8 +1,10 @@
+import { useActionsStore } from '@/lib/store/actions-store';
 import { FileSystemItem } from '@/types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CardsGrid } from '../cards/cards-grid';
 import { FileCard } from '../cards/file-card';
 import { FolderCard } from '../cards/folder-card';
+import { NewFolderCard } from '../cards/new-folder-card';
 import { UpCard } from '../cards/up-card';
 import { InfiniteEnd, InfiniteLoader } from '../infinite-scroll-helpers';
 
@@ -14,6 +16,8 @@ type Props = {
 };
 
 export const CardsSection = ({ items, loadMore, hasMore, upLink }: Props) => {
+    const { isCreatingFolder } = useActionsStore();
+
     return (
         <section>
             <InfiniteScroll
@@ -25,6 +29,7 @@ export const CardsSection = ({ items, loadMore, hasMore, upLink }: Props) => {
             >
                 <CardsGrid>
                     <UpCard link={upLink} />
+                    {isCreatingFolder && <NewFolderCard />}
                     {items.map((item) => {
                         return item.type === 'folder' ? (
                             <FolderCard key={item.id} item={item} />

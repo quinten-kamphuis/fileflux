@@ -1,19 +1,17 @@
 import {
     Table,
     TableBody,
-    TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
 import { useActionsStore } from '@/lib/store/actions-store';
 import { FileSystemItem } from '@/types';
-import { router } from '@inertiajs/react';
-import { IconArrowLeft } from '@tabler/icons-react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { InfiniteEnd, InfiniteLoader } from '../infinite-scroll-helpers';
 import { ListItem } from '../list/list-item';
 import { NewFolderItem } from '../list/new-folder-item';
+import { ScrollTopItem } from '../list/scroll-top-item';
 import { UpItem } from '../list/up-item';
 
 type Props = {
@@ -46,20 +44,12 @@ export const ListSection = ({ items, loadMore, hasMore, upLink }: Props) => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow
-                            onClick={() => router.replace(upLink)}
-                            className="cursor-pointer"
-                        >
-                            <TableCell>
-                                <IconArrowLeft />
-                            </TableCell>
-                            <TableCell colSpan={3}>Go up</TableCell>
-                        </TableRow>
+                        <UpItem upLink={upLink} />
                         {isCreatingFolder && <NewFolderItem />}
                         {items.map((item) => (
                             <ListItem key={item.id} item={item} />
                         ))}
-                        {!hasMore && items.length > 50 && <UpItem />}
+                        {!hasMore && items.length > 50 && <ScrollTopItem />}
                     </TableBody>
                 </Table>
             </InfiniteScroll>
