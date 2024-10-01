@@ -27,9 +27,11 @@ class ItemResource extends JsonResource
                     route('folders.show', ['folder' => $this->parent_folder_id]) :
                     route('boxes.show', ['box' => $this->box_id]),
                 'download' => $this->getType() === 'file' ?
-                    route('files.download', ['file' => $this->id]) : null,
+                    route('files.download', ['file' => $this->id]) :
+                    route('folders.download', ['folder' => $this->id]),
                 'delete' => $this->getType() === 'file' ?
-                    route('files.destroy', ['file' => $this->id]) : null,
+                    route('files.destroy', ['file' => $this->id]) :
+                    route('folders.destroy', ['folder' => $this->id]),
             ],
             'folderCount' => $this->getType() === 'folder' ?
                 $this->getFolderCount($this) : null,

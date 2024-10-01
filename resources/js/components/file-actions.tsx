@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { useFileSystemStore } from '@/lib/store/file-system-store';
-import { router } from '@inertiajs/react';
+import { useFileSystemActions } from '@/lib/hooks/use-file-system-actions';
 import { IconDownload, IconTrash } from '@tabler/icons-react';
 
 type Props = {
@@ -9,27 +8,11 @@ type Props = {
 };
 
 export const FileActions = ({ downloadLink, deleteLink }: Props) => {
-    const { boxId, folderId } = useFileSystemStore((state) => state);
+    const { handleDelete } = useFileSystemActions();
 
-    const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (deleteLink) {
-            router.delete(deleteLink, {
-                preserveScroll: true,
-                preserveState: true,
-                onSuccess: () => {
-                    if (folderId) {
-                        router.visit(route('folders.show', folderId), {
-                            only: ['folders'],
-                        });
-                    } else if (boxId) {
-                        router.visit(route('boxes.show', boxId), {
-                            only: ['folders'],
-                        });
-                    }
-                },
-            });
-        }
+        handleDelete(deleteLink);
     };
 
     return (
@@ -42,7 +25,7 @@ export const FileActions = ({ downloadLink, deleteLink }: Props) => {
                 </Button>
             )}
             {deleteLink && (
-                <Button variant="secondary" onClick={handleDelete}>
+                <Button variant="secondary" onClick={handleOnClick}>
                     <IconTrash />
                 </Button>
             )}

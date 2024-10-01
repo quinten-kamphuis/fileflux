@@ -18,15 +18,21 @@ trait HandlesFolderContents
 
         // Fetch folders
         $foldersQuery = $model->getType() === 'box' ?
-            Folder::query()->where('box_id', $model->id)
+            Folder::query()
+                ->where('box_id', $model->id)
                 ->whereNull('parent_folder_id') :
-            Folder::query()->where('parent_folder_id', $model->id);
+            Folder::query()
+                ->where('box_id', $model->box_id)
+                ->where('parent_folder_id', $model->id);
 
         // Fetch files
         $filesQuery = $model->getType() === 'box' ?
-            File::query()->where('box_id', $model->id)
+            File::query()
+                ->where('box_id', $model->id)
                 ->whereNull('parent_folder_id') :
-            File::query()->where('parent_folder_id', $model->id);
+            File::query()
+                ->where('box_id', $model->box_id)
+                ->where('parent_folder_id', $model->id);
 
         if ($search) {
             $foldersQuery->where('name', 'ILIKE', "%{$search}%");

@@ -6,8 +6,10 @@ use App\Http\Requests\StoreFolderRequest;
 use App\Http\Resources\FolderResource;
 use App\Models\Folder;
 use App\Traits\HandlesFolderContents;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Storage;
 
 class FolderController extends Controller
 {
@@ -90,6 +92,30 @@ class FolderController extends Controller
      */
     public function destroy(string $id)
     {
-        dd('destroy');
+        $folder = Folder::findOrFail($id);
+
+        DB::transaction(function () use ($folder) {
+            $this->deleteRecursively($folder);
+        });
+    }
+
+    /**
+     * Recursively delete a folder and all its contents.
+     */
+    private function deleteRecursively(Folder $folder)
+    {
+        // Delete all files in this folder
+        foreach ($folder->files as $file) {
+            Storage::disk('sftp')->delete($file->path);
+            $file->delete();
+        }
+
+        // Recursively delete all subfolders and their contents
+        foreach ($folder->folders as $subfolder) {
+            $this->deleteRecursively($subfolder);
+        }
+
+        // Delete the folder itself
+        $folder->delete();
     }
 }

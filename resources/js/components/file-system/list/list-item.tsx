@@ -1,8 +1,9 @@
 import { TableCell, TableRow } from '@/components/ui/table';
 import { TooltipWrapper } from '@/components/wrappers/tooltip-wrapper';
+import { useFileSystemActions } from '@/lib/hooks/use-file-system-actions';
 import { toSentenceCase } from '@/lib/utils';
 import { FileSystemItem } from '@/types';
-import { Link, router } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { IconFile, IconFolder } from '@tabler/icons-react';
 
 type Props = {
@@ -10,10 +11,18 @@ type Props = {
 };
 
 export const ListItem = ({ item }: Props) => {
+    const { handleDelete } = useFileSystemActions();
+
     const openItemProps = {
         className: 'cursor-pointer',
         onClick: () => router.replace(item.links.self),
     };
+
+    const handleOnClick = (e: React.MouseEvent<HTMLTableCellElement>) => {
+        e.preventDefault();
+        handleDelete(item.links.delete);
+    };
+
     return (
         <TableRow key={item.id}>
             <TableCell {...openItemProps}>
@@ -38,10 +47,11 @@ export const ListItem = ({ item }: Props) => {
                     <TooltipWrapper>{item.createdAt}</TooltipWrapper>
                 )}
             </TableCell>
-            <TableCell className="text-right">
-                <Link href={item.links.delete ?? '#'} className="text-red-500">
-                    Delete
-                </Link>
+            <TableCell
+                className="cursor-pointer bg-destructive text-right text-destructive-foreground"
+                onClick={handleOnClick}
+            >
+                Delete
             </TableCell>
         </TableRow>
     );

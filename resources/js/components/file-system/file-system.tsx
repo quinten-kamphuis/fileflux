@@ -64,7 +64,10 @@ export const FileSystem = ({
 
     useEffect(() => {
         fetchItems();
-    }, [fetchItems]);
+        return () => {
+            setItemsList(initialItems);
+        };
+    }, [fetchItems, initialItems]);
 
     const loadMore = useCallback(() => {
         if (!nextCursor || isLoading) return;
