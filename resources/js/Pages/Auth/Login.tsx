@@ -54,17 +54,7 @@ export default function Login({
                 </div>
 
                 <div className="mt-4">
-                    <Label htmlFor="password">
-                        Password
-                        {canResetPassword && (
-                            <Link
-                                href={route('password.request')}
-                                className="text-sm text-gray-600 dark:text-gray-400"
-                            >
-                                (Forgot?)
-                            </Link>
-                        )}
-                    </Label>
+                    <Label htmlFor="password">Password</Label>
 
                     <Input
                         id="password"
@@ -80,19 +70,32 @@ export default function Login({
                 </div>
 
                 <div className="mt-4 block">
-                    <label className="flex items-center">
-                        <Checkbox name="remember" checked={data.remember} />
-                        <span className="ms-2 text-sm text-gray-600 dark:text-gray-400">
+                    <Label
+                        className="flex w-min cursor-pointer items-center focus-visible:ring-2 focus-visible:ring-offset-2"
+                        tabIndex={0}
+                        onClick={(e) =>
+                            setData(
+                                'remember',
+                                (e.target as HTMLInputElement).checked,
+                            )
+                        }
+                    >
+                        <Checkbox
+                            name="remember"
+                            checked={data.remember}
+                            tabIndex={-1}
+                        />
+                        <span className="no-select ms-2 text-nowrap text-sm">
                             Remember me
                         </span>
-                    </label>
+                    </Label>
                 </div>
 
-                <div className="mt-4 flex items-center justify-end">
+                <div className="no-select mt-4 flex items-center justify-end">
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
+                            className="rounded-md text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                         >
                             Forgot your password?
                         </Link>
