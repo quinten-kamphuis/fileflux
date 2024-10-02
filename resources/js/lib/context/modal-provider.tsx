@@ -6,7 +6,6 @@ import {
     useState,
 } from 'react';
 
-import CreateFolderForm from '@/components/forms/create-folder-form';
 import UploadFileForm from '@/components/forms/upload-file-form';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 
@@ -25,7 +24,7 @@ export const useModal = () => {
     return context;
 };
 
-const modals = ['createFile', 'createFolder'] as const;
+const modals = ['createFile'] as const;
 type ModalType = (typeof modals)[number];
 
 const modalsFalseObject = Object.fromEntries(
@@ -57,7 +56,6 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
                 {children}
                 <DialogContent className="max-h-[90vh] overflow-y-auto overflow-x-clip sm:max-w-[425px]">
                     {openModals.createFile && <UploadFileForm />}
-                    {openModals.createFolder && <CreateFolderForm />}
                 </DialogContent>
             </Dialog>
         </ModalContext.Provider>
