@@ -6,6 +6,7 @@ import { FileCard } from '../cards/file-card';
 import { FolderCard } from '../cards/folder-card';
 import { NewFolderCard } from '../cards/new-folder-card';
 import { UpCard } from '../cards/up-card';
+import { FileUpload } from '../file-upload';
 import { InfiniteEnd, InfiniteLoader } from '../infinite-scroll-helpers';
 
 type Props = {
@@ -16,7 +17,7 @@ type Props = {
 };
 
 export const CardsSection = ({ items, loadMore, hasMore, upLink }: Props) => {
-    const { isCreatingFolder } = useActionsStore();
+    const { isCreatingFolder, filesUploading } = useActionsStore();
 
     return (
         <section>
@@ -30,6 +31,14 @@ export const CardsSection = ({ items, loadMore, hasMore, upLink }: Props) => {
                 <CardsGrid>
                     <UpCard link={upLink} />
                     {isCreatingFolder && <NewFolderCard />}
+                    {filesUploading &&
+                        filesUploading.map((file) => (
+                            <FileUpload
+                                key={file.file.name}
+                                file={file}
+                                variant="card"
+                            />
+                        ))}
                     {items.map((item) => {
                         return item.type === 'folder' ? (
                             <FolderCard key={item.id} item={item} />

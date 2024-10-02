@@ -2,6 +2,7 @@ import { Input } from '@/components/ui/input';
 import { CardWrapper } from '@/components/wrappers/card-wrapper';
 import { useActionsStore } from '@/lib/store/actions-store';
 import { useFileSystemStore } from '@/lib/store/file-system-store';
+import { scrollToTop } from '@/lib/utils';
 import { router, useForm } from '@inertiajs/react';
 import { IconFolder } from '@tabler/icons-react';
 import { useRef } from 'react';
@@ -20,13 +21,6 @@ export const NewFolderCard = () => {
         parent_folder_id: folderId,
         name: '',
     });
-
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
-    };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Escape') {
@@ -63,6 +57,7 @@ export const NewFolderCard = () => {
             });
         }
     };
+
     return (
         <CardWrapper
             title={

@@ -11,7 +11,7 @@ const Providers = ({ children }: Props) => {
         <ModalProvider>
             <TooltipProvider>
                 {children}
-                <Toaster />
+                <Toaster position="top-center" />
             </TooltipProvider>
         </ModalProvider>
     );

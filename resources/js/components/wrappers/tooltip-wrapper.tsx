@@ -11,7 +11,9 @@ type Props = {
 };
 
 export const TooltipWrapper = ({ children, content, delay = 300 }: Props) => {
-    if (!content) {
+    if (content === undefined) {
+        console.log(content);
+        console.log(children);
         if (typeof children !== 'string') {
             throw new Error(
                 'TooltipWrapper: You must provide a content prop when children is not a string',

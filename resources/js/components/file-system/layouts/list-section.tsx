@@ -8,6 +8,7 @@ import {
 import { useActionsStore } from '@/lib/store/actions-store';
 import { FileSystemItem } from '@/types';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { FileUpload } from '../file-upload';
 import { InfiniteEnd, InfiniteLoader } from '../infinite-scroll-helpers';
 import { ListItem } from '../list/list-item';
 import { NewFolderItem } from '../list/new-folder-item';
@@ -22,7 +23,7 @@ type Props = {
 };
 
 export const ListSection = ({ items, loadMore, hasMore, upLink }: Props) => {
-    const { isCreatingFolder } = useActionsStore();
+    const { isCreatingFolder, filesUploading } = useActionsStore();
     return (
         <section>
             <InfiniteScroll
@@ -46,6 +47,14 @@ export const ListSection = ({ items, loadMore, hasMore, upLink }: Props) => {
                     <TableBody>
                         <UpItem upLink={upLink} />
                         {isCreatingFolder && <NewFolderItem />}
+                        {filesUploading &&
+                            filesUploading.map((file) => (
+                                <FileUpload
+                                    key={file.file.name}
+                                    file={file}
+                                    variant="list"
+                                />
+                            ))}
                         {items.map((item) => (
                             <ListItem key={item.id} item={item} />
                         ))}

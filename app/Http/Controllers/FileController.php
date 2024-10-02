@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FileUploadRequest;
+use App\Http\Requests\StoreFileRequest;
 use App\Http\Resources\FileResource;
 use App\Models\Box;
 use App\Models\File;
@@ -34,7 +34,7 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(FileUploadRequest $request)
+    public function store(StoreFileRequest $request)
     {
 
         $file = $request->file('file');
@@ -46,7 +46,9 @@ class FileController extends Controller
         $path = "users/{$user->id}/boxes/{$box->id}/files/{$file->hashName()}";
 
         // Store the file
-        Storage::disk('sftp')->put($path, file_get_contents($file));
+        if (!Storage::disk('sftp')->put($path, file_get_contents($file))) {
+            abort(500, 'Failed to store the file.');
+        }
 
         // Create database record
         $fileRecord = new File([
